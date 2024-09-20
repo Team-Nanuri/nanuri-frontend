@@ -1,0 +1,51 @@
+
+.line {
+    background-color: #F4F4F4;
+    border: none;
+    height: 8px;
+}
+
+.user{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 10px;
+    gap: 4px;
+
+}
+
+.header{
+    display: flex;
+    align-items: center;
+    margin-top: 90px;
+    margin-bottom: 30px;
+    margin-left: 17px;
+
+}
+
+.admin{
+    margin-top: 30px;
+}
+.adminButton{
+    display: flex;
+    height: 40px;
+    margin-left: 17px;
+    cursor: pointer;
+}
+
+.adminButton img{
+    margin-left: 250px;
+}
+
+
+.settingButton{
+    display: flex;
+    height: 40px;
+    margin-left: 17px;
+    cursor: pointer;
+}
+
+
+.setting{
+    margin-top: 24px;
+}
