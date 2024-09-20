@@ -1,19 +1,26 @@
-export default function MyPage() {
-  const myItems = [];
-  for (let i = 0; i < 50; i++) {
-    myItems.push(<MyItem key={i} num={i}/>);
-  }
-  return (
-    <div className="w-full bg-red-300">
-      {myItems}
-    </div>
-  );
-}
+import { useUser } from "../hooks/useUser";
+import { ActivityIcon } from "lucide-react";
 
-function MyItem({num}) {
+export default function MyPage() {
+  const {user, error} = useUser();
+  
   return (
-    <div className="w-full h-[50px] bg-red-300 pb-4">
-      MyItem {num}
+    <div className="w-full">
+   <ActivityIcon size={24}/>
+   {error && <p>Error loading user info</p>}
+   {user ? (
+        <div>
+          {user.username} 
+          {user.userType}
+        </div>
+      ) : (
+        <p>Loading user info...</p>
+      )}
+ 
+  <img src={"/src/assets/profile.png"}/>
+    <hr className="w-full bg-#F4F4F4  "></hr>
+  
     </div>
+
   );
 }
