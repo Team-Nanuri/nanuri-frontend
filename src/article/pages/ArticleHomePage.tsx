@@ -5,7 +5,7 @@ import {QueryKey, useInfiniteQuery} from "@tanstack/react-query";
 import type {InfiniteData} from "@tanstack/query-core";
 import {Fragment, useEffect} from "react";
 import {useInView} from "react-intersection-observer";
-import {Heart} from "lucide-react";
+import {Heart, Search} from "lucide-react";
 
 export default function ArticleHomePage() {
   const queryKey: QueryKey = [
@@ -56,9 +56,8 @@ export default function ArticleHomePage() {
 
   return (
     <div className="w-full">
-      <div>
-        ArticleHomePage
-      </div>
+      <HomeHeader/>
+      <div className="h-[60px]"/>
       {data?.pages.map((page, i) => (
         <Fragment key={i}>
           {
@@ -71,6 +70,19 @@ export default function ArticleHomePage() {
       <div ref={ref}>
         {isFetchingNextPage && 'Loading more...'}
       </div>
+    </div>
+  );
+}
+
+
+function HomeHeader() {
+  return (
+    <div className="
+      h-[60px] w-full flex flex-row justify-between items-center fixed
+      px-[20px] bg-white border-b
+    ">
+      <img className="h-[28px] pb-[4px]" src={"src/assets/logo.png"} alt={"#"}/>
+      <Search />
     </div>
   );
 }
