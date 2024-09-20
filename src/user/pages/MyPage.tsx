@@ -1,38 +1,40 @@
-import {useUser} from "../hooks/useUser";
+import { useUser } from "../hooks/useUser";
 import styles from "./MyPage.module.css";
+import profile from "@/assets/profile.png";
 
 export default function MyPage() {
-  const {user, error} = useUser();
+  const { user, error } = useUser();
 
   return (
-    <div className="w-full h-">
+    <div className="w-full h-full">
       <div className={styles.header}>
-        <img src={"/src/assets/profile.png"}/>
-        {error && <p>Error loading user info</p>}
-        {user ? (
-          <div className={styles.user}>
-            <label>{user.username} </label>
-            <label>{user.userType} </label>
-          </div>
-        ) : (
-          <p>Loading user info...</p>
-        )}
+        <div className={styles.header_content}>
+          <img src={profile} />
+          {error && <p>Error loading user info</p>}
+          {user ? (
+            <div className={styles.user}>
+              <label>{user.username} </label>
+              <label>{user.userType} </label>
+            </div>
+          ) : (
+            <p>Loading user info...</p>
+          )}
+                        </div>
       </div>
 
       <hr className={styles.line}></hr>
       <div className={styles.admin}>
-        <AdminButton label="나눔 물품 관리"/>
-        <AdminButton label="회원 정보 관리"/>
+        <AdminButton label="나눔 물품 관리" />
+        <AdminButton label="회원 정보 관리" />
       </div>
 
       <hr className={styles.line}></hr>
       <div className={styles.setting}>
-        <SettingButton label="로그아웃"/>
-        <SettingButton label="탈퇴하기"/>
-        <SettingButton label="개인정보처리방침"/>
+        <SettingButton label="로그아웃" />
+        <SettingButton label="탈퇴하기" />
+        <SettingButton label="개인정보처리방침" />
       </div>
     </div>
-
   );
 }
 
@@ -40,20 +42,15 @@ interface AdminButtonProps {
   label: string;
 }
 
-
-export function AdminButton({label}: AdminButtonProps) {
+export function AdminButton({ label }: AdminButtonProps) {
   return (
     <button className={styles.adminButton}>
       {label}
-      <img src={"/src/assets/chevron-left.png"}/>
+      <img src={"/src/assets/chevron-left.png"} />
     </button>
   );
 }
 
-export function SettingButton({label}: AdminButtonProps) {
-  return (
-    <button className={styles.settingButton}>
-      {label}
-    </button>
-  );
+export function SettingButton({ label }: AdminButtonProps) {
+  return <button className={styles.settingButton}>{label}</button>;
 }
