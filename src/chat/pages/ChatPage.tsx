@@ -50,11 +50,27 @@ function ChatHeader() {
 function RoomItem({chatRoom}: { chatRoom: ChatRoomModel }) {
   return (
     <div className="
+      h-[90px] w-full
       flex flex-row items-center justify-between
-      px-[20px] py-[10px] border-b
+      border-b
     ">
-      <div>
-        {chatRoom.lastMessage.message}
+      <img className="w-[60px] h-[60px] rounded-[6px] ml-[15px]" src={chatRoom.article.imageUrl} alt="#"/>
+      <div className="pl-[12px] flex flex-col flex-grow justify-between h-full py-[16px] pr-[8px]">
+        <div className="w-full flex flex-row items-center">
+          <div className="font-semibold text-[16px]">
+            {chatRoom.article.title}
+          </div>
+          <div className="w-[6px]"/>
+          <div className="flex-[1] text-[12px]">
+            {chatRoom.otherUser.username}
+          </div>
+          <div className="font-normal text-[14px]">
+            {chatRoom.lastMessage.createdAt.substring(5, 10)}
+          </div>
+        </div>
+        <div className="font-normal text-[14px]">
+          {chatRoom.lastMessage.message}
+        </div>
       </div>
     </div>
   );
