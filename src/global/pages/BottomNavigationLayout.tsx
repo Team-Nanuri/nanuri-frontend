@@ -5,11 +5,9 @@ import {ActivityIcon} from "lucide-react";
 
 export function BottomNavigationLayout() {
   return (
-    <div className="w-full h-full flex flex-col">
-      <div className="w-full h-full mb-[68px]"> {/* BottomNavigation의 높이만큼 빼줌 */}
-        <div className="h-full flex-grow">
-          <Outlet/> {/* 네비게이션을 제외한 위쪽 부분 */}
-        </div>
+    <div className="w-full fleBottomNavigationLayoutx flex-col">
+      <div className="w-full h-[calc(100vh-68px)] flex-grow"> {/* BottomNavigation의 높이만큼 빼줌 */}
+        <Outlet/> {/* 네비게이션을 제외한 위쪽 부분 */}
       </div>
       <BottomNavigation/>
     </div>
@@ -26,8 +24,8 @@ const bottomNavItems = [
 
 function BottomNavigation() {
   return (
-    <div className="w-full h-[68px] max-w-[430px]
-      fixed bottom-0  bg-white"
+    <footer className="w-full h-[68px] max-w-[430px]
+       bg-white"
     >
       <div className="h-full flex justify-around items-center">
         {bottomNavItems.map((item) => (
@@ -44,6 +42,6 @@ function BottomNavigation() {
           </Link>
         ))}
       </div>
-    </div>
+    </footer>
   );
 }

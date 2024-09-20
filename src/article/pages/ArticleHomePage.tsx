@@ -55,21 +55,23 @@ export default function ArticleHomePage() {
 
 
   return (
-    <div className="w-full">
+    <div className="w-full h-full">
       <HomeHeader/>
-      <div className="h-[60px]"/>
-      {data?.pages.map((page, i) => (
-        <Fragment key={i}>
-          {
-            page.contents.map(article => (
-              <ArticleItem key={article.articleId} article={article}/>
-            ))
-          }
-        </Fragment>
-      ))}
-      <div ref={ref}>
-        {isFetchingNextPage && 'Loading more...'}
-      </div>
+      <section className="h-[calc(100%-60px)] overflow-auto">
+        {data?.pages.map((page, i) => (
+          <Fragment key={i}>
+            {
+              page.contents.map(article => (
+                <ArticleItem key={article.articleId} article={article}/>
+              ))
+            }
+          </Fragment>
+        ))}
+        <div ref={ref}>
+          {isFetchingNextPage && 'Loading more...'}
+        </div>
+      </section>
+
     </div>
   );
 }
@@ -77,13 +79,13 @@ export default function ArticleHomePage() {
 
 function HomeHeader() {
   return (
-    <div className="
-      h-[60px] w-full flex flex-row justify-between items-center fixed
+    <header className="
+      h-[60px] flex flex-row justify-between items-center
       px-[20px] bg-white border-b
     ">
       <img className="h-[28px] pb-[4px]" src={"src/assets/logo.png"} alt={"#"}/>
       <Search />
-    </div>
+    </header>
   );
 }
 
