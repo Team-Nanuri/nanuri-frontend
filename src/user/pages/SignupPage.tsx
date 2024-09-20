@@ -1,4 +1,6 @@
 import {Input} from "@/global/components/ui/input.tsx";
+import {Checkbox} from "@/global/components/ui/checkbox.tsx";
+import {Select} from "@/global/components/ui/select.tsx";
 export default function SignupPage() {
   return (
     <div className="w-full flex flex-col">
@@ -43,6 +45,15 @@ export default function SignupPage() {
         </div>
 
         <div className="h-[45px]"/>
+
+        <div className="w-full flex flex-row items-center justify-center">
+          <Checkbox id="terms1"/>
+          <div className="pl-[16px]">
+            개인정보 처리방침에 동의합니다.
+          </div>
+        </div>
+
+        <div className="h-[45px]"/>
         <GreenButton/>
 
 
@@ -56,7 +67,7 @@ export default function SignupPage() {
 export function GreenButton() {
   return (
     <button className="h-[60px] bg-primaryGreen text-white rounded-[8px] w-full">
-      로그인
+      회원가입
     </button>
   );
 }
