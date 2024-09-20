@@ -1,57 +1,14 @@
 import {ArticleModel, shareTypeToKorean} from "@/article/api/article-response.ts";
-import {getArticlePaging} from "@/article/api/article-api.ts";
-import {ApiError, PagingResponse} from "@/global/api/response.ts";
-import {QueryKey, useInfiniteQuery} from "@tanstack/react-query";
-import type {InfiniteData} from "@tanstack/query-core";
-import {Fragment, useEffect} from "react";
-import {useInView} from "react-intersection-observer";
+import {Fragment} from "react";
 import {Heart, Search} from "lucide-react";
+import useArticlePaging from "@/article/hooks/useArticlePaging.ts";
 
 export default function ArticleHomePage() {
-  const queryKey: QueryKey = [
-    'articles', // 쿼리의 고유한 식별자
-  ];
-
   const {
     data,
     isFetchingNextPage,
-    isFetching,
-    hasNextPage,
-    fetchNextPage
-  } = useInfiniteQuery<
-    PagingResponse<ArticleModel>,
-    ApiError,
-    InfiniteData<PagingResponse<ArticleModel>>
-  >({
-    queryKey: queryKey,
-    initialPageParam: {page: 0, size: 10},
-    queryFn: async context => {
-      const p = context.pageParam;
-      return await getArticlePaging({
-        page: p.page,
-        size: p.size,
-      });
-    },
-    getNextPageParam: (lastPage, allPages, lastPageParam) => {
-      return {
-        page: lastPageParam.page + 1,
-        size: lastPageParam.size,
-      };
-    },
-
-  });
-
-
-  const {ref, inView} = useInView({
-    threshold: 0,
-  });
-
-
-  useEffect(() => {
-    if (inView && !isFetchingNextPage && !isFetching && hasNextPage) {
-      fetchNextPage();
-    }
-  }, [inView, data?.pages.length, isFetching, hasNextPage, fetchNextPage]);
+    ref,
+  } = useArticlePaging();
 
 
   return (
