@@ -9,7 +9,7 @@ import {
 } from "@/article/api/article-request.ts";
 
 
-function genArticle(page:number, size: number,keyword:string): PagingResponse<ArticleModel> {
+function genArticle(page:number, size: number,keyword?:string): PagingResponse<ArticleModel> {
   const articles : ArticleModel[]= [];
   for(let i = page*size; i <page*size+ size; i++) {
     const article: ArticleModel = {
