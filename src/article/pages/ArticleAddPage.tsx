@@ -16,6 +16,12 @@ export default function ArticleAddPage() {
   const [titleContent, setTitleContent] = useState<string>(""); // 문자열 상태
   const maxCharacters: number = 20;
   const [isCategoryOpen, setCategoryOpen] = useState<boolean>(false);
+  const [selectedCategory, setSelectedCategory] = useState<string>('카테고리 선택');
+
+
+  const handleCategorySelect = (category: string) => {
+    setSelectedCategory(category); // 선택한 카테고리를 저장
+  };
 
   const openCategory = (): void => {
     setCategoryOpen(true);
@@ -172,8 +178,8 @@ export default function ArticleAddPage() {
         <div className={styles.categoryContainer}>
           <label>카테고리</label>
           <button className={styles.categoryButton} onClick={openCategory}>
-            <label>카테고리 선택</label>
-            <ChevronDown size={20} />
+            <label>{selectedCategory}</label>
+            <ChevronDown size={20} className={styles.chevronDown} />
           </button>
         </div>
         <hr className={styles.line}></hr>
@@ -195,7 +201,10 @@ export default function ArticleAddPage() {
         </div>
       </section>
       {/* 모달 열릴 때 ArticleCategory 컴포넌트 표시 */}
-      {isCategoryOpen && <ArticleCategory closeCategory={closeCategory} />}
+      {isCategoryOpen &&
+      ( <ArticleCategory 
+        closeCategory={closeCategory}      
+        onCategorySelect={handleCategorySelect} />)}
 
       <footer>
         <button className={styles.uploadButton}>등록하기</button>

@@ -53,3 +53,26 @@
 body.modal-open {
     overflow: hidden;   /* 페이지가 움직이지 않도록 고정 */
 }
+
+.categoryButton {
+    background-color: white;
+    border: 2px solid #f0f0f0;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 150px;
+    text-align: center;
+  }
+  
+  .categoryButton:hover {
+    background-color: #f0f0f0;
+  }
+
+  .categoryGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2열 그리드 */
+    gap: 10px; /* 그리드 아이템 간격 */
+  }
