@@ -6,7 +6,7 @@ import chevronright from "@/assets/chevron-right.svg";
 import close from "@/assets/close.svg";
 import del from "@/assets/delete.svg";
 import camera from "@/assets/camera.svg";
-import ArticleCategory from '../components/ArticleCategory';
+import ArticleCategory from "../components/ArticleCategory";
 
 export default function ArticleAddPage() {
   const navigate = useNavigate();
@@ -16,6 +16,12 @@ export default function ArticleAddPage() {
   const [titleContent, setTitleContent] = useState<string>(""); // 문자열 상태
   const maxCharacters: number = 20;
   const [isCategoryOpen, setCategoryOpen] = useState<boolean>(false);
+  const [selectedCategory, setSelectedCategory] = useState<string>('카테고리 선택');
+
+
+  const handleCategorySelect = (category: string) => {
+    setSelectedCategory(category); // 선택한 카테고리를 저장
+  };
 
   const openCategory = (): void => {
     setCategoryOpen(true);
@@ -24,7 +30,6 @@ export default function ArticleAddPage() {
   const closeCategory = (): void => {
     setCategoryOpen(false);
   };
-
 
   //이미지 업로드 핸들러
   function uploadFile(e: ChangeEvent<HTMLInputElement>): void {
@@ -152,7 +157,7 @@ export default function ArticleAddPage() {
 
       <section className={styles.section}>
         <div className={styles.typeContainer}>
-        <hr className={styles.line}></hr>
+          <hr className={styles.line}></hr>
           <label>나눔 유형</label>
           <div className={styles.typeButtonContainer}>
             <TypeButton
@@ -173,14 +178,9 @@ export default function ArticleAddPage() {
         <div className={styles.categoryContainer}>
           <label>카테고리</label>
           <button className={styles.categoryButton} onClick={openCategory}>
-            <label>카테고리 선택</label>
-            <ChevronDown size={20} />
+            <label>{selectedCategory}</label>
+            <ChevronDown size={20} className={styles.chevronDown} />
           </button>
-             {/* 모달 열릴 때 ArticleCategory 컴포넌트 표시 */}
-      {isCategoryOpen && (
-        <ArticleCategory closeCategory={closeCategory} />
-      )}
-      
         </div>
         <hr className={styles.line}></hr>
         <div className={styles.contentContainer}>
@@ -200,6 +200,11 @@ export default function ArticleAddPage() {
           <textarea className={styles.contentInput} />
         </div>
       </section>
+      {/* 모달 열릴 때 ArticleCategory 컴포넌트 표시 */}
+      {isCategoryOpen &&
+      ( <ArticleCategory 
+        closeCategory={closeCategory}      
+        onCategorySelect={handleCategorySelect} />)}
 
       <footer>
         <button className={styles.uploadButton}>등록하기</button>

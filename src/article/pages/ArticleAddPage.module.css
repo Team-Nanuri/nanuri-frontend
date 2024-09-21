@@ -192,6 +192,11 @@
 
 }
 
+.chevronDown{
+  margin-left: 84px;
+  position: fixed;
+}
+
 .charCount {
   position: absolute;
   right: 10px;
