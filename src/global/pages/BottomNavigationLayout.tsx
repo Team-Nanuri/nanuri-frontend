@@ -1,6 +1,7 @@
 import {Link, Outlet, useLocation} from "react-router-dom";
-import {ROUTER_PATH} from "@/global/const/const.ts";
+import {LANGUAGE, ROUTER_PATH} from "@/global/const/const.ts";
 import {CirclePlus, CircleUserRound, Heart, House, MessageSquare} from "lucide-react";
+import {useTranslation} from "react-i18next";
 
 
 export function BottomNavigationLayout() {
@@ -16,35 +17,37 @@ export function BottomNavigationLayout() {
 
 
 function BottomNavigation() {
+
+  const { t } = useTranslation();
   const location = useLocation();
 
   const bottomNavItems = [
     {
-      name: "홈",
+      name: `${t(LANGUAGE.HOME)}`,
       path: ROUTER_PATH.HOME,
       icon: House,
       variant: location.pathname === ROUTER_PATH.HOME? 'default' : 'ghost',
     },
     {
-      name: "좋아요",
+      name: `${t(LANGUAGE.LIKE)}`,
       path: ROUTER_PATH.LIKE,
       icon: Heart,
       variant: location.pathname === ROUTER_PATH.LIKE ? 'default' : 'ghost',
     },
     {
-      name: "등록",
+      name: `${t(LANGUAGE.ADD)}`,
       path: ROUTER_PATH.ADD,
       icon: CirclePlus,
       variant: location.pathname === ROUTER_PATH.ADD ? 'default' : 'ghost',
     },
     {
-      name: "채팅",
+      name: `${t(LANGUAGE.CHAT)}`,
       path: ROUTER_PATH.CHAT,
       icon: MessageSquare,
       variant: location.pathname === ROUTER_PATH.CHAT ? 'default' : 'ghost',
     },
     {
-      name: "마이",
+      name: `${t(LANGUAGE.MY)}`,
       path: ROUTER_PATH.MY,
       icon: CircleUserRound,
       variant: location.pathname === ROUTER_PATH.MY ? 'default' : 'ghost',
