@@ -63,6 +63,7 @@ export async function getArticleDetail(articleId: number): Promise<ArticleDetail
       id: articleId,
       username: `User ${articleId}`,
     },
+    status: articleId%3 === 1 ? 'DONE' : 'ONGOING',
     rentalEndDate: new Date().toISOString(),
     rentalStartDate: new Date().toISOString(),
   }
