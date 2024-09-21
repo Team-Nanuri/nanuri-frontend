@@ -43,7 +43,7 @@ function ChatHeader() {
       <h1 className="font-normal text-[20px]">
         채팅
       </h1>
-      <Search/>
+      {/*<Search/>*/}
     </header>
   );
 }
