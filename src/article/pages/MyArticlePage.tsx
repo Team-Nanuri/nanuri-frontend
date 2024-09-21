@@ -3,18 +3,19 @@ import useArticlePaging from "@/article/hooks/useArticlePaging.ts";
 import {Fragment} from "react";
 import UserItem from "@/user/components/UserItem.tsx";
 import {useUser} from "@/user/hooks/useUser.ts";
-import {Link, useNavigate} from "react-router-dom";
-import {ROUTER_PATH} from "@/global/const/const.ts";
+import {useNavigate} from "react-router-dom";
 import {ChevronLeft} from "lucide-react";
 
 export default function MyArticlePage() {
+  const {user, error} = useUser();
   const {
     data,
     ref,
     isFetchingNextPage,
-  } = useArticlePaging();
+  } = useArticlePaging({
+    userId: user?.id,
+  });
 
-  const {user, error} = useUser();
 
   return (
     <div className="w-full h-full">

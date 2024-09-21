@@ -1,4 +1,3 @@
-import {PagingParams} from "@/global/api/request.ts";
 import {PagingResponse} from "@/global/api/response.ts";
 import {ArticleModel} from "@/article/api/article-response.ts";
 import {axiosClient} from "@/global/api/axios.ts";
