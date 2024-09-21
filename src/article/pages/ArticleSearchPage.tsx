@@ -46,10 +46,14 @@ export default function ArticleSearchPage() {
         setSearchKeyword={setSearchKeyword}
         onSearchClicked={onSearchClicked}
       />
-      <ArticleSearchParamBox
-        shareType={shareType} setShareType={setShareType}
-        status={status} setStatus={setStatus}
-      />
+      {
+        apiKeyword && data && (
+          <ArticleSearchParamBox
+            shareType={shareType} setShareType={setShareType}
+            status={status} setStatus={setStatus}
+          />
+        )
+      }
       <section className="h-[calc(100%-100px)] overflow-auto">
 
         {apiKeyword &&  data?.pages.map((page, i) => (
