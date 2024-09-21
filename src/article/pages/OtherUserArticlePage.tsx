@@ -3,20 +3,29 @@ import {Fragment} from "react";
 import ArticleItem from "@/article/components/ArticleItem.tsx";
 import {useNavigate, useParams} from "react-router-dom";
 import {ChevronLeft} from "lucide-react";
-import useOtherUserArticlePaging from "@/article/hooks/useOtherUserArticlePaging.ts";
+import {useQuery} from "@tanstack/react-query";
+import {getOtherUserInfo} from "@/user/api/user-api.ts";
+import useArticlePaging from "@/article/hooks/useArticlePaging.ts";
 
 export default function OtherUserArticlePage() {
   const { userId } = useParams<{ userId: string }>();
 
   const {
-    pagingData,
+    data,
     ref,
     isFetchingNextPage,
-    user,
-    userError
-  } = useOtherUserArticlePaging({
+  } = useArticlePaging({
     userId: Number(userId),
   });
+
+
+
+  const {data: user, error: userError} = useQuery({
+    queryKey: ['user', userId],
+    queryFn: async () => {
+      return await getOtherUserInfo(Number(userId));
+    },
+  })
 
 
   return (
@@ -26,7 +35,7 @@ export default function OtherUserArticlePage() {
       <div className="h-[8px] w-full bg-searchBarGrey mt-[8px]"/>
       <ArticleHeader/>
       <section className="h-[calc(100%-196px)] overflow-auto">
-        {pagingData?.pages.map((page, i) => (
+        {data?.pages.map((page, i) => (
           <Fragment key={i}>
             {
               page.contents.map(article => (

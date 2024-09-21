@@ -10,7 +10,7 @@ export interface ArticleModel {
   liked: boolean;
 }
 
-type ShareType = 'DONATE' | 'RENTAL';
+export type ShareType = 'DONATE' | 'RENTAL';
 
 export function shareTypeToKorean(shareType: ShareType): string {
   return shareType === 'DONATE' ? '나눔 중' : '대여 중';

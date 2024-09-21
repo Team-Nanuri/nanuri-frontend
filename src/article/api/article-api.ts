@@ -2,7 +2,12 @@ import {PagingParams} from "@/global/api/request.ts";
 import {PagingResponse} from "@/global/api/response.ts";
 import {ArticleModel} from "@/article/api/article-response.ts";
 import {axiosClient} from "@/global/api/axios.ts";
-import {ArticleCreateRequest, ArticleStatusUpdateRequest, ArticleUpdateRequest} from "@/article/api/article-request.ts";
+import {
+  ArticleCreateRequest,
+  ArticlePagingParams,
+  ArticleStatusUpdateRequest,
+  ArticleUpdateRequest
+} from "@/article/api/article-request.ts";
 
 
 function genArticle(page:number, size: number): PagingResponse<ArticleModel> {
@@ -27,7 +32,7 @@ function genArticle(page:number, size: number): PagingResponse<ArticleModel> {
 }
 
 
-export async function getArticlePaging(params: PagingParams): Promise<PagingResponse<ArticleModel>> {
+export async function getArticlePaging(params: ArticlePagingParams): Promise<PagingResponse<ArticleModel>> {
   // const res = await axiosClient.get('/api/articles', {
   //   params: {
   //     ...params

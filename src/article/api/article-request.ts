@@ -1,3 +1,16 @@
+import {ShareType} from "@/article/api/article-response.ts";
+
+export interface ArticlePagingParams {
+  page: number;
+  size: number;
+  writerId?: number;
+  string?: string;
+  shareType?: ShareType;
+}
+
+
+
+
 export interface ArticleCreateRequest {
   category: ItemCategory;
   shareType: string;
