@@ -1,9 +1,10 @@
-import {Search} from "lucide-react";
+import {Bell, Search} from "lucide-react";
 import {ChatRoomModel} from "@/chat/api/chat-response.ts";
 import useChatRoomPaging from "@/chat/hooks/useChatRoomPaging.ts";
 import {Fragment} from "react";
 import {Link} from "react-router-dom";
 import LoadingSpinner from "@/global/components/LoadingSpinner.tsx";
+import {ROUTER_PATH} from "@/global/const/const.ts";
 
 export default function ChatPage() {
   const {
@@ -45,7 +46,9 @@ function ChatHeader() {
       <h1 className="font-normal text-[20px]">
         채팅
       </h1>
-      {/*<Search/>*/}
+      <Link to={ROUTER_PATH.NOTICE}>
+        <Bell size={24}/>
+      </Link>
     </header>
   );
 }
