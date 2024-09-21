@@ -1,6 +1,6 @@
-import {Link, Outlet} from "react-router-dom";
+import {Link, Outlet, useLocation} from "react-router-dom";
 import {ROUTER_PATH} from "@/global/const/const.ts";
-import {ActivityIcon} from "lucide-react";
+import {CirclePlus, CircleUserRound, Heart, House, MessageSquare} from "lucide-react";
 
 
 export function BottomNavigationLayout() {
@@ -14,19 +14,45 @@ export function BottomNavigationLayout() {
   );
 }
 
-const bottomNavItems = [
-  {name: "홈", path: ROUTER_PATH.HOME},
-  {name: "좋아요", path: ROUTER_PATH.LIKE},
-  {name: "등록", path: ROUTER_PATH.ADD},
-  {name: "채팅", path: ROUTER_PATH.CHAT},
-  {name: "마이", path: ROUTER_PATH.MY},
-];
 
 function BottomNavigation() {
+  const location = useLocation();
+
+  const bottomNavItems = [
+    {
+      name: "홈",
+      path: ROUTER_PATH.HOME,
+      icon: House,
+      variant: location.pathname === ROUTER_PATH.HOME? 'default' : 'ghost',
+    },
+    {
+      name: "좋아요",
+      path: ROUTER_PATH.LIKE,
+      icon: Heart,
+      variant: location.pathname === ROUTER_PATH.LIKE ? 'default' : 'ghost',
+    },
+    {
+      name: "등록",
+      path: ROUTER_PATH.ADD,
+      icon: CirclePlus,
+      variant: location.pathname === ROUTER_PATH.ADD ? 'default' : 'ghost',
+    },
+    {
+      name: "채팅",
+      path: ROUTER_PATH.CHAT,
+      icon: MessageSquare,
+      variant: location.pathname === ROUTER_PATH.CHAT ? 'default' : 'ghost',
+    },
+    {
+      name: "마이",
+      path: ROUTER_PATH.MY,
+      icon: CircleUserRound,
+      variant: location.pathname === ROUTER_PATH.MY ? 'default' : 'ghost',
+    },
+  ];
+
   return (
-    <footer className="w-full h-[68px] max-w-[430px]
-       bg-white"
-    >
+    <footer className="w-full h-[68px] max-w-[430px] bg-white">
       <div className="h-full flex justify-around items-center">
         {bottomNavItems.map((item) => (
           <Link key={item.path}
@@ -34,9 +60,13 @@ function BottomNavigation() {
                 className="h-full flex flex-col items-center justify-center"
           >
             <div className="">
-              <ActivityIcon size={24}/>
+              <item.icon
+                fill={item.variant === "default" ? "#2E2E2E" : "#D5D5D5"}
+                color={"#ffffff"}
+                size={32}
+              />
             </div>
-            <div>
+            <div className="font-normal text-[14px]">
               {item.name}
             </div>
           </Link>
