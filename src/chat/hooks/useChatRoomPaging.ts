@@ -32,6 +32,7 @@ export default function useChatRoomPaging() {
       });
     },
     getNextPageParam: (lastPage, allPages, lastPageParam) => {
+      if(lastPage.totalPages <= lastPageParam.page + 1) return null;
       return {
         page: lastPageParam.page + 1,
         size: lastPageParam.size,
