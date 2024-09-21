@@ -6,7 +6,8 @@ import {PagingParams} from "@/global/api/request.ts";
 import {UserModel} from "@/user/api/user-response.ts";
 
 export function sendChatMessage(req: ChatSendRequest): Promise<void> {
-  return axiosClient.post('/api/chat', req);
+  // return axiosClient.post('/api/chat', req);
+  return;
 }
 
 function genChatRoom(page: number, size: number): PagingResponse<ChatRoomModel> {
@@ -69,6 +70,7 @@ export async function getChatRoomDetail(roomId: number): Promise<ChatDetailRespo
       createdAt: i===0 ? '2024-03-11' : i===29 ? '2025-12-23' :  new Date().toISOString(),
     };
   })]; // 닫는 괄호 수정
+  await new Promise(resolve => setTimeout(resolve, 1000));
   return {
     roomId: roomId,
     article: {
@@ -81,6 +83,11 @@ export async function getChatRoomDetail(roomId: number): Promise<ChatDetailRespo
         userType: 'FOREIGNER',
       },
     },
-    messages
+    messages,
+    otherUser: {
+      id: 3,
+      username: 'User 3',
+      userType: 'FOREIGNER',
+    }
   }
 }

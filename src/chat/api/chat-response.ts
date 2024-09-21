@@ -12,6 +12,7 @@ export interface ChatDetailResponse {
   roomId: number;
   article: ArticleSimpleModel;
   messages: MessageModel[];
+  otherUser: UserModel;
 }
 
 export interface ArticleSimpleModel {
