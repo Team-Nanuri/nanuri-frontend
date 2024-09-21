@@ -2,6 +2,7 @@ import useArticlePaging from "@/article/hooks/useArticlePaging.ts";
 import {Fragment} from "react";
 import ArticleItem from "@/article/components/ArticleItem.tsx";
 import LoadingSpinner from "@/global/components/LoadingSpinner.tsx";
+import {useTranslation} from "react-i18next";
 
 export default function ArticleLikePage() {
   const {
@@ -41,13 +42,14 @@ export default function ArticleLikePage() {
 
 
 function LikeHeader() {
+  const { t } = useTranslation();
   return (
     <header className="
       h-[60px] flex flex-row justify-between items-center
       px-[20px] bg-white border-b
     ">
       <h1 className="font-normal text-[20px]">
-        좋아요
+        {t('좋아요')}
       </h1>
 
     </header>

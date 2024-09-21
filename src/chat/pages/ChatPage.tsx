@@ -6,6 +6,7 @@ import {Link} from "react-router-dom";
 import LoadingSpinner from "@/global/components/LoadingSpinner.tsx";
 import {ROUTER_PATH} from "@/global/const/const.ts";
 import useNotice from "@/chat/hooks/useNotice.ts";
+import {useTranslation} from "react-i18next";
 
 export default function ChatPage() {
   const {
@@ -41,13 +42,14 @@ export default function ChatPage() {
 
 
 function ChatHeader({count}: { count?: number }) {
+  const { t } = useTranslation();
   return (
     <header className="
       h-[60px] flex flex-row justify-between items-center
       px-[20px] bg-white border-b
     ">
       <h1 className="font-normal text-[20px]">
-        채팅
+        {t('채팅')}
       </h1>
       <Link to={ROUTER_PATH.NOTICE} className="relative">
         <Bell size={24}/>

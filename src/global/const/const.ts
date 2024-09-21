@@ -19,9 +19,9 @@ export const ACCESS_TOKEN = "accessToken";
 export const REFRESH_TOKEN = "refreshToken";
 
 export const LANGUAGE = {
-  HOME: 'home',
-  LIKE: 'like',
-  ADD: 'add',
-  CHAT: 'chat',
-  MY: 'my',
+  HOME: '홈',
+  LIKE: '좋아요',
+  ADD: '추가',
+  CHAT: '채팅',
+  MY: '마이',
 }
