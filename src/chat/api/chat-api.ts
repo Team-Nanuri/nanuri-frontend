@@ -12,7 +12,7 @@ export function sendChatMessage(req: ChatSendRequest): Promise<void> {
 function genChatRoom(page: number, size: number): PagingResponse<ChatRoomModel> {
   const chatRooms: ChatRoomModel[] = [];
   for (let i = page * size; i < page * size + size; i++) {
-    const otherUser : UserModel = {
+    const otherUser: UserModel = {
       userType: 'FOREIGNER',
       id: i,
       username: `User ${i}`,
@@ -59,6 +59,51 @@ export async function getChatRoomPaging(params: PagingParams): Promise<PagingRes
 }
 
 export async function getChatRoomDetail(roomId: number): Promise<ChatDetailResponse> {
-  const res = await axiosClient.get(`/api/chat/${roomId}`);
-  return res.data;
+  // const res = await axiosClient.get(`/api/chat/${roomId}`);
+  // return res.data;
+  return {
+    roomId: roomId,
+    article: {
+      articleId: 1,
+      imageUrl: 'https://picsum.photos/200/300?random=1',
+      title: 'Article 1',
+      writer: {
+        username: 'User 1',
+        id: 1,
+        userType: 'FOREIGNER',
+      },
+    },
+    messages: [
+      {
+        message: 'Message 1',
+        receiverId: 1,
+        senderId: 3,
+        createdAt: new Date().toISOString(),
+      },
+      {
+        message: 'Message 2',
+        receiverId: 1,
+        senderId: 3,
+        createdAt: new Date().toISOString(),
+      },
+      {
+        message: 'Message 3',
+        receiverId: 1,
+        senderId: 3,
+        createdAt: new Date().toISOString(),
+      },
+      {
+        message: 'Message 4',
+        receiverId: 3,
+        senderId: 1,
+        createdAt: new Date().toISOString(),
+      },
+      {
+        message: 'Message 5',
+        receiverId: 1,
+        senderId: 3,
+        createdAt: new Date().toISOString(),
+      },
+    ]
+  }
 }
