@@ -3,7 +3,7 @@ import useArticlePaging from "@/article/hooks/useArticlePaging.ts";
 import {Fragment} from "react";
 import UserItem from "@/user/components/UserItem.tsx";
 import {useUser} from "@/user/hooks/useUser.ts";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {ROUTER_PATH} from "@/global/const/const.ts";
 import {ChevronLeft} from "lucide-react";
 
@@ -43,14 +43,19 @@ export default function MyArticlePage() {
 
 
 function BackButtonHeader() {
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    navigate(-1); // 뒤로 가기
+  };
   return (
     <header className="
       h-[60px] flex flex-row justify-between items-center
       px-[20px] bg-white
     ">
-      <Link to={ROUTER_PATH.HOME}>
+      <button onClick={handleBack}>
         <ChevronLeft/>
-      </Link>
+      </button>
     </header>
   );
 }
