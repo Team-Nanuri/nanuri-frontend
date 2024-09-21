@@ -22,7 +22,7 @@ export default function useArticlePaging(
     status,
   }: UseUserArticlePagingProps) {
   const queryKey: QueryKey = [
-    'articles', userId, shareType, keyword
+    'articles', userId, shareType, keyword, status
   ];
 
 
