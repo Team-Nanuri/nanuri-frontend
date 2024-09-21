@@ -13,6 +13,8 @@ export default function MyArticlePage() {
     data,
     ref,
     isFetchingNextPage,
+    likeClick,
+    dislikeClick,
   } = useArticlePaging({
     userId: user?.id,
   });
@@ -30,7 +32,12 @@ export default function MyArticlePage() {
           <Fragment key={i}>
             {
               page.contents.map(article => (
-                <ArticleItem key={article.articleId} article={article}/>
+                <ArticleItem
+                  key={article.articleId}
+                  article={article}
+                  likeClick={likeClick}
+                  dislikeClick={dislikeClick}
+                />
               ))
             }
           </Fragment>

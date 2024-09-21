@@ -8,6 +8,8 @@ export default function ArticleLikePage() {
     data,
     isFetchingNextPage,
     ref,
+    likeClick,
+    dislikeClick,
   } = useArticlePaging({});
 
   return (
@@ -19,7 +21,12 @@ export default function ArticleLikePage() {
           <Fragment key={i}>
             {
               page.contents.map(article => (
-                <ArticleItem key={article.articleId} article={article}/>
+                <ArticleItem
+                  key={article.articleId}
+                  article={article}
+                  likeClick={likeClick}
+                  dislikeClick={dislikeClick}
+                />
               ))
             }
           </Fragment>
