@@ -41,7 +41,7 @@ export function ChatList({messages}: { messages: MessageModel[] }) {
       </div>
       {messages.map((message, index) => (
         <div key={index}>
-          {index !== 0 && (message.createdAt !== messages[index - 1].createdAt) && (
+          {index !== 0 && (new Date(message.createdAt).getDay() !== new Date(messages[index - 1].createdAt).getDay()) && (
             <div className="font-normal text-[12px] text-center my-[12px]">
               {dayjs(message.createdAt).format('YYYY년 MM월 DD일')}
             </div>

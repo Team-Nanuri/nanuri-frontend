@@ -8,6 +8,7 @@ export const ROUTER_PATH = {
   LOGIN: "/login",
   SIGNUP: "/signup",
   SEARCH: "/search",
+  MY_ARTICLE: "/my-article",
 };
 
 export const API_BASE_URL = "http://localhost:8080";

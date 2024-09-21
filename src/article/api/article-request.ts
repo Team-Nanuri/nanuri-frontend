@@ -1,3 +1,18 @@
+import {ArticleStatus, ShareType} from "@/article/api/article-response.ts";
+
+export interface ArticlePagingParams {
+  page: number;
+  size: number;
+  writerId?: number;
+  categories?: string;
+  keyword?: string;
+  shareType?: ShareType;
+  status?: ArticleStatus;
+}
+
+
+
+
 export interface ArticleCreateRequest {
   category: ItemCategory;
   shareType: string;

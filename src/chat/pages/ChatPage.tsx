@@ -3,6 +3,7 @@ import {ChatRoomModel} from "@/chat/api/chat-response.ts";
 import useChatRoomPaging from "@/chat/hooks/useChatRoomPaging.ts";
 import {Fragment} from "react";
 import {Link} from "react-router-dom";
+import LoadingSpinner from "@/global/components/LoadingSpinner.tsx";
 
 export default function ChatPage() {
   const {
@@ -16,6 +17,7 @@ export default function ChatPage() {
     <div className="w-full h-full">
       <ChatHeader/>
       <section className="h-[calc(100%-60px)] overflow-auto">
+        {!data && <LoadingSpinner/>}
         {data?.pages.map((page, i) => (
           <Fragment key={i}>
             {

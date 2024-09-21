@@ -1,43 +1,41 @@
 import {Link, useParams} from "react-router-dom";
-import {useQuery} from "@tanstack/react-query";
-import {getChatRoomDetail} from "@/chat/api/chat-api.ts";
-import {ArticleSimpleModel, ChatDetailResponse} from "@/chat/api/chat-response.ts";
+import {ArticleSimpleModel} from "@/chat/api/chat-response.ts";
 import {ROUTER_PATH} from "@/global/const/const.ts";
 import {ChevronLeft} from "lucide-react";
 import {useState} from "react";
 import ChatInputBox from "@/chat/components/ChatInputBox.tsx";
 import {ChatList} from "@/chat/components/ChatList.tsx";
-import {ApiError} from "@/global/api/response.ts";
+import useMessage from "@/chat/hooks/useMessage.ts";
+import {ChatSendRequest} from "@/chat/api/chat-request.ts";
+import LoadingSpinner from "@/global/components/LoadingSpinner.tsx";
 
 export default function ChatDetailPage() {
   const { roomId } = useParams<{ roomId: string }>();
-  const [sendMessage, setSendMessage] = useState("");
+  const [toSendMessage, setToSendMessage] = useState("");
 
-  const {data, error} = useQuery<
-    ChatDetailResponse,
-    ApiError,
-    ChatDetailResponse
-  >({
-    queryKey: ['chat', roomId],
-    queryFn: async () => {
-      return await getChatRoomDetail(Number(roomId));
-    },
-    gcTime: 1000 * 60 * 5, // 5분
+  const {data, error, sendMessage} = useMessage({
+    roomId: Number(roomId),
   });
 
   if(error) {
     return <div>채팅방 정보를 불러오지 못했습니다.</div>;
   }
   if(!data) {
-    return <div>로딩 중...</div>;
+    return <LoadingSpinner/>;
   }
 
 
   const onSendClicked = () => {
-    if(sendMessage.trim() === "") {
+    if(toSendMessage.trim() === "") {
       return;
     }
-    alert(`메시지 전송: ${sendMessage}`);
+    const req: ChatSendRequest = {
+      message: toSendMessage,
+      articleId: data.article.articleId,
+      receiverId: data.otherUser.id
+    }
+    setToSendMessage("");
+    sendMessage(req);
   }
 
   return (
@@ -46,7 +44,7 @@ export default function ChatDetailPage() {
       <section className="h-[calc(100%-120px)] overflow-auto">
         <ChatList messages={data.messages}/>
       </section>
-      <ChatInputBox message={sendMessage} setMessage={setSendMessage} onSendClicked={onSendClicked}/>
+      <ChatInputBox message={toSendMessage} setMessage={setToSendMessage} onSendClicked={onSendClicked}/>
     </div>
   );
 }

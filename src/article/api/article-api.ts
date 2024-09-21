@@ -1,21 +1,26 @@
-import {PagingParams} from "@/global/api/request.ts";
 import {PagingResponse} from "@/global/api/response.ts";
 import {ArticleModel, ArticleDetailModel} from "@/article/api/article-response.ts";
 import {axiosClient} from "@/global/api/axios.ts";
-import {ArticleCreateRequest, ArticleStatusUpdateRequest, ArticleUpdateRequest} from "@/article/api/article-request.ts";
+import {
+  ArticleCreateRequest,
+  ArticlePagingParams,
+  ArticleStatusUpdateRequest,
+  ArticleUpdateRequest
+} from "@/article/api/article-request.ts";
 
 
-function genArticle(page:number, size: number): PagingResponse<ArticleModel> {
+function genArticle(page:number, size: number,keyword:string): PagingResponse<ArticleModel> {
   const articles : ArticleModel[]= [];
   for(let i = page*size; i <page*size+ size; i++) {
     const article: ArticleModel = {
       articleId: i,
       title: `Article ${i}`,
-      content: `Article content ${i}`,
+      content: `Article content ${i} ${keyword}`,
       imageUrl: `https://picsum.photos/200/300?random=${i}`,
       createdAt: new Date(),
       shareType: 'DONATE',
       liked: i%7 === 4,
+      status: i%3 === 1 ? 'DONE' : 'ONGOING',
     }
     articles.push(article);
   }
@@ -27,7 +32,7 @@ function genArticle(page:number, size: number): PagingResponse<ArticleModel> {
 }
 
 
-export async function getArticlePaging(params: PagingParams): Promise<PagingResponse<ArticleModel>> {
+export async function getArticlePaging(params: ArticlePagingParams): Promise<PagingResponse<ArticleModel>> {
   // const res = await axiosClient.get('/api/articles', {
   //   params: {
   //     ...params
@@ -35,7 +40,7 @@ export async function getArticlePaging(params: PagingParams): Promise<PagingResp
   // });
   // return res.data;
 
-  const data = genArticle(params.page, params.size);
+  const data = genArticle(params.page, params.size,params.keyword);
   console.log('paing api 콜!',params, data);
   await new Promise(resolve => setTimeout(resolve, 1000));
   return data;
