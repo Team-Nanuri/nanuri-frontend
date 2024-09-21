@@ -1,5 +1,6 @@
 import {ArticleModel, shareTypeToKorean} from "@/article/api/article-response.ts";
 import {Heart} from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface ArticleItemProps {
   article: ArticleModel;
@@ -7,7 +8,10 @@ interface ArticleItemProps {
 
 export default function ArticleItem({article}: ArticleItemProps) {
   return (
-    <div className="h-[130px] flex flex-row justify-center items-center border-b">
+    <Link
+     className="h-[130px] flex flex-row justify-center items-center border-b"
+     to={`/article/${article.articleId}`}
+     >
       <img className="mx-[12px] w-[96px] h-[96px]" src={article.imageUrl} alt="#"/>
 
       <div className="h-full flex-grow flex flex-col pr-[12px] py-[12px]">
@@ -28,6 +32,6 @@ export default function ArticleItem({article}: ArticleItemProps) {
           {!article.liked && <Heart />}
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

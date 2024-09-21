@@ -1,6 +1,6 @@
 import {PagingParams} from "@/global/api/request.ts";
 import {PagingResponse} from "@/global/api/response.ts";
-import {ArticleModel} from "@/article/api/article-response.ts";
+import {ArticleModel, ArticleDetailModel} from "@/article/api/article-response.ts";
 import {axiosClient} from "@/global/api/axios.ts";
 import {ArticleCreateRequest, ArticleStatusUpdateRequest, ArticleUpdateRequest} from "@/article/api/article-request.ts";
 
@@ -41,9 +41,27 @@ export async function getArticlePaging(params: PagingParams): Promise<PagingResp
   return data;
 }
 
-export async function getArticleDetail(articleId: number): Promise<ArticleModel> {
-  const res = await axiosClient.get(`/api/articles/${articleId}`);
-  return res.data;
+export async function getArticleDetail(articleId: number): Promise<ArticleDetailModel> {
+  // const res = await axiosClient.get(`/api/articles/${articleId}`);
+  // return res.data;
+  await new Promise(resolve => setTimeout(resolve, 1000));
+  const article: ArticleDetailModel = {
+    articleId,
+    title: `Article ${articleId}`,
+    content: `Article content ${articleId}`,
+    imageUrls: [`https://picsum.photos/200/300?random=${articleId}`],
+    shareType: 'DONATE',
+    liked: articleId%7 === 4,
+    category: 'CATEGORY',
+    writer: {
+      userType: 'FOREIGNER',
+      id: articleId,
+      username: `User ${articleId}`,
+    },
+    rentalEndDate: new Date().toISOString(),
+    rentalStartDate: new Date().toISOString(),
+  }
+  return article;
 }
 
 export async function createArticle(req: ArticleCreateRequest): Promise<void> {

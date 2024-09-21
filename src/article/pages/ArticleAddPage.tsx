@@ -31,29 +31,35 @@ export default function ArticleAddPage() {
     setCategoryOpen(false);
   };
 
-  //이미지 업로드 핸들러
-  function uploadFile(e: ChangeEvent<HTMLInputElement>): void {
-    const fileArr = e.target.files;
-    if (fileArr) {
-      let files = Array.from(fileArr);
-      if (files.length + postImg.length > maxFiles) {
-        files = files.slice(0, maxFiles - postImg.length);
-      }
-
-      setPostImg((prev) => [...prev, ...files]);
-
-      const fileURL: string[] = [];
-      files.forEach((file, i) => {
-        const fileRead = new FileReader();
-        fileRead.onload = function () {
-          fileURL[i] = fileRead.result as string;
-          // 모든 파일 읽기가 완료된 후 미리보기 이미지 업데이트
-          setPreviewImg((prev) => [...prev, ...fileURL]);
-        };
-        fileRead.readAsDataURL(file);
-      });
+ // 이미지 업로드 핸들러
+function uploadFile(e: ChangeEvent<HTMLInputElement>): void {
+  const fileArr = e.target.files;
+  if (fileArr) {
+    let files = Array.from(fileArr);
+    
+    // 최대 파일 수 초과 처리
+    if (files.length + postImg.length > maxFiles) {
+      files = files.slice(0, maxFiles - postImg.length);
     }
+
+    setPostImg((prev) => [...prev, ...files]);
+
+    // 파일 읽기를 Promise로 처리하여 모든 파일을 읽은 후 상태 업데이트
+    const fileReadPromises = files.map((file) => {
+      return new Promise<string>((resolve, reject) => {
+        const fileReader = new FileReader();
+        fileReader.onload = () => resolve(fileReader.result as string);
+        fileReader.onerror = reject;
+        fileReader.readAsDataURL(file);
+      });
+    });
+
+    // 모든 파일이 읽힌 후에 미리보기 이미지 상태를 업데이트
+    Promise.all(fileReadPromises).then((fileURLs) => {
+      setPreviewImg((prev) => [...prev, ...fileURLs]);
+    });
   }
+}
 
   // 이미지 삭제 핸들러
   function removeImage(index: number): void {

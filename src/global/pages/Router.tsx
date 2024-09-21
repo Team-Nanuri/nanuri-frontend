@@ -10,6 +10,7 @@ import LoginPage from "@/user/pages/LoginPage.tsx";
 import SignupPage from "@/user/pages/SignupPage.tsx";
 import ArticleSearchPage from "@/article/pages/ArticleSearchPage.tsx";
 import ChatDetailPage from "@/chat/pages/ChatDetailPage.tsx";
+import ArticleDetailPage from "@/article/pages/ArticleDetailPage";
 
 
 const router = createBrowserRouter([
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
           {path: "my", element: <MyPage/>},
         ]
       },
+      {path: "article/:articleId", element: <ArticleDetailPage/>},
       {path: "add", element: <ArticleAddPage/>},
       {path: "search", element: <ArticleSearchPage />},
       {path: "chat/:roomId", element: <ChatDetailPage/>},
