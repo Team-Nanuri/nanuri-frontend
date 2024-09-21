@@ -1,6 +1,5 @@
-import {ArticleModel, shareTypeToKorean} from "@/article/api/article-response.ts";
 import {Fragment} from "react";
-import {Heart, Search} from "lucide-react";
+import {Search} from "lucide-react";
 import useArticlePaging from "@/article/hooks/useArticlePaging.ts";
 import logo from "@/assets/logo.svg";
 import ArticleItem from "@/article/components/ArticleItem.tsx";
