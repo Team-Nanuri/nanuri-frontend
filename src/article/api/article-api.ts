@@ -17,7 +17,7 @@ function genArticle(page:number, size: number,keyword:string): PagingResponse<Ar
       title: `Article ${i}`,
       content: `Article content ${i} ${keyword}`,
       imageUrl: `https://picsum.photos/200/300?random=${i}`,
-      createdAt: new Date(),
+      createdAt: new Date().toISOString(),
       shareType: 'DONATE',
       liked: i%7 === 4,
       status: i%3 === 1 ? 'DONE' : 'ONGOING',
@@ -57,6 +57,7 @@ export async function getArticleDetail(articleId: number): Promise<ArticleDetail
     imageUrls: [`https://picsum.photos/200/300?random=${articleId}`],
     shareType: 'DONATE',
     liked: articleId%7 === 4,
+    createdAt: new Date().toISOString(),
     category: 'CATEGORY',
     writer: {
       userType: 'FOREIGNER',

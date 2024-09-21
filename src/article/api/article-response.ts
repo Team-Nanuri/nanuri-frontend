@@ -5,7 +5,7 @@ export interface ArticleModel {
   title: string;
   content: string;
   imageUrl: string;
-  createdAt: Date;
+  createdAt: string;
   shareType: ShareType;
   status: ArticleStatus;
   liked: boolean;
@@ -24,6 +24,7 @@ export interface ArticleDetailModel {
   content: string;
   imageUrls: string[];
   category: string;
+  createdAt: string;
   shareType: ShareType;
   status: ArticleStatus;
   rentalStartDate: string;

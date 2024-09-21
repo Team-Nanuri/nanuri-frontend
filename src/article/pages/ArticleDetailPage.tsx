@@ -3,6 +3,9 @@ import { useQuery } from "@tanstack/react-query";
 import { getArticleDetail } from "../api/article-api";
 import styles from "./ArticleDetailPage.module.css";
 import { ChevronLeft, Heart } from "lucide-react";
+import dayjs from 'dayjs';
+import 'dayjs/locale/ko';
+import LoadingSpinner from "@/global/components/LoadingSpinner";
 // import styles from "@/article/pages/ArticleDetailPage.module.css";
 
 export default function ArticleDetailPage() {
@@ -15,9 +18,19 @@ export default function ArticleDetailPage() {
     },
   });
 
+
   const goBack = () => {
     navigate(-1);
   };
+
+  if(!articleDetail) {
+    return <LoadingSpinner />
+  }
+
+  const dateStr = articleDetail.createdAt;
+  dayjs.locale('ko');
+  const formatDateStr = dayjs(dateStr).format('YYYY/MM/DD HH:mm');
+
 
   return (
     <div className="w-full h-full">
@@ -41,16 +54,32 @@ export default function ArticleDetailPage() {
         />
       ))}
       </div>
-
+      <div className={styles.contentContainer}> 
       <div className={styles.userContainer}>
-        <p>{articleDetail?.writer.username}</p>
-        <p>{articleDetail?.writer.userType}</p>
+        <p className={styles.username}>{articleDetail?.writer.username}</p>
+        <p className={styles.userType}>{articleDetail?.writer.userType}</p>
         </div>
         <hr className={styles.line}/>
-    
+        <div className={styles.infoContainer}>
+        <div className={styles.infoFirstLine}>
+        <p className={styles.title}>{articleDetail?.title}</p>
+        <p className={styles.category}>{articleDetail?.category}</p>
+        </div>
+        <p className={styles.createdAt}>{formatDateStr}</p>
+        <p className={styles.shareType}>{articleDetail?.shareType}</p>
+        </div>
+        <div className={styles.contentWrapper}>
+        <p className={styles.content}>{articleDetail?.content}</p>
+       </div>
+        <footer>
+            <button className={styles.footerButton}>문의</button>
+        </footer>
 
+        </div>
 
-      </div>
+   
+        </div>
     
   );
 }
+
