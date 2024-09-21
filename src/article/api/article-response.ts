@@ -7,6 +7,7 @@ export interface ArticleModel {
   imageUrl: string;
   createdAt: Date;
   shareType: ShareType;
+  status: ArticleStatus;
   liked: boolean;
 }
 
@@ -24,9 +25,11 @@ export interface ArticleDetailModel {
   imageUrls: string[];
   category: string;
   shareType: ShareType;
+  status: ArticleStatus;
   rentalStartDate: string;
   rentalEndDate: string;
   liked: boolean;
   writer: UserModel;
-
 }
+
+export type ArticleStatus = 'DONE' | 'ONGOING';

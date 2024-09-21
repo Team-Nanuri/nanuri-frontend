@@ -1,4 +1,4 @@
-import {ShareType} from "@/article/api/article-response.ts";
+import {ArticleStatus, ShareType} from "@/article/api/article-response.ts";
 
 export interface ArticlePagingParams {
   page: number;
@@ -7,6 +7,7 @@ export interface ArticlePagingParams {
   categories?: string;
   keyword?: string;
   shareType?: ShareType;
+  status?: ArticleStatus;
 }
 
 

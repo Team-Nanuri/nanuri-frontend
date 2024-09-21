@@ -20,6 +20,7 @@ function genArticle(page:number, size: number,keyword:string): PagingResponse<Ar
       createdAt: new Date(),
       shareType: 'DONATE',
       liked: i%7 === 4,
+      status: i%3 === 1 ? 'DONE' : 'ONGOING',
     }
     articles.push(article);
   }

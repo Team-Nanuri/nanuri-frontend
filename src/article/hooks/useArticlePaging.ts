@@ -1,6 +1,6 @@
 import {QueryKey, useInfiniteQuery} from "@tanstack/react-query";
 import {ApiError, PagingResponse} from "@/global/api/response.ts";
-import {ArticleModel, ShareType} from "@/article/api/article-response.ts";
+import {ArticleModel, ArticleStatus, ShareType} from "@/article/api/article-response.ts";
 import type {InfiniteData} from "@tanstack/query-core";
 import {getArticlePaging} from "@/article/api/article-api.ts";
 import {useInView} from "react-intersection-observer";
@@ -11,6 +11,7 @@ interface UseUserArticlePagingProps {
   userId?: number;
   shareType?: ShareType;
   keyword?: string;
+  status?: ArticleStatus;
 }
 
 export default function useArticlePaging(
@@ -18,6 +19,7 @@ export default function useArticlePaging(
     userId,
     shareType,
     keyword,
+    status,
   }: UseUserArticlePagingProps) {
   const queryKey: QueryKey = [
     'articles', userId, shareType, keyword
@@ -44,6 +46,7 @@ export default function useArticlePaging(
       writerId: userId,
       shareType,
       keyword,
+      status,
     },
     queryFn: async context => {
       return await getArticlePaging(context.pageParam);
