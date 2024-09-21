@@ -58,6 +58,7 @@ export default {
                 'bgPrimaryWhite': '#FDFDFD',
                 'primaryGreen': '#08A65C',
                 'textWhiteForGreen': '#F5F5F5',
+                'searchBarGrey': '#F0F0F0',
             }
         }
     },

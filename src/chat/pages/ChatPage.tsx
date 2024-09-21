@@ -39,9 +39,9 @@ function ChatHeader() {
       h-[60px] flex flex-row justify-between items-center
       px-[20px] bg-white border-b
     ">
-      <div>
+      <h1 className="font-normal text-[20px]">
         채팅
-      </div>
+      </h1>
       <Search/>
     </header>
   );

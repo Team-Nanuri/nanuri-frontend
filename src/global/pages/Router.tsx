@@ -8,6 +8,7 @@ import ArticleLikePage from "@/article/pages/ArticleLikePage.tsx";
 import ArticleAddPage from "@/article/pages/ArticleAddPage.tsx";
 import LoginPage from "@/user/pages/LoginPage.tsx";
 import SignupPage from "@/user/pages/SignupPage.tsx";
+import ArticleSearchPage from "@/article/pages/ArticleSearchPage.tsx";
 
 
 const router = createBrowserRouter([
@@ -21,6 +22,8 @@ const router = createBrowserRouter([
           {path: "my", element: <MyPage/>},
         ]
       },
+      {path: "search", element: <ArticleSearchPage />},
+
       {path: "login", element: <LoginPage/>},
       {path: "signup", element: <SignupPage />}
     ]
