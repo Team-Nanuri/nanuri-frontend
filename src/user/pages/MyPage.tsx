@@ -1,6 +1,6 @@
 import { useUser } from "../hooks/useUser";
 import styles from "./MyPage.module.css";
-import profile from "@/assets/profile.png";
+import profile from "@/assets/profile.svg";
 
 export default function MyPage() {
   const { user, error } = useUser();
@@ -46,7 +46,7 @@ export function AdminButton({ label }: AdminButtonProps) {
   return (
     <button className={styles.adminButton}>
       {label}
-      <img src={"/src/assets/chevron-left.png"} />
+      <img src={"/src/assets/chevron-left.svg"} />
     </button>
   );
 }
