@@ -1,31 +1,32 @@
-import useArticlePaging from "@/article/hooks/useArticlePaging.ts";
-import {useUser} from "@/user/hooks/useUser.ts";
 import UserItem from "@/user/components/UserItem.tsx";
 import {Fragment} from "react";
 import ArticleItem from "@/article/components/ArticleItem.tsx";
 import {useNavigate, useParams} from "react-router-dom";
 import {ChevronLeft} from "lucide-react";
+import useOtherUserArticlePaging from "@/article/hooks/useOtherUserArticlePaging.ts";
 
 export default function OtherUserArticlePage() {
   const { userId } = useParams<{ userId: string }>();
 
   const {
-    data,
+    pagingData,
     ref,
     isFetchingNextPage,
-  } = useArticlePaging();
-  console.log(userId);
+    user,
+    userError
+  } = useOtherUserArticlePaging({
+    userId: Number(userId),
+  });
 
-  const {user, error} = useUser();
 
   return (
     <div className="w-full h-full">
       <BackButtonHeader/>
-      <UserItem user={user} error={error} />
+      <UserItem user={user} error={userError} />
       <div className="h-[8px] w-full bg-searchBarGrey mt-[8px]"/>
       <ArticleHeader/>
       <section className="h-[calc(100%-196px)] overflow-auto">
-        {data?.pages.map((page, i) => (
+        {pagingData?.pages.map((page, i) => (
           <Fragment key={i}>
             {
               page.contents.map(article => (

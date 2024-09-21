@@ -12,6 +12,11 @@ export async function getMyInfo(): Promise<UserModel>{
 }
 
 export async function getOtherUserInfo(userId: number): Promise<UserModel>{
-  const res = await axiosClient.get(`/user/${userId}`);
-  return res.data;
+  // const res = await axiosClient.get(`/users/${userId}`);
+  // return res.data;
+  return {
+    id: userId,
+    username: `${userId}번 유저`,
+    userType: 'FOREIGNER'
+  }
 }
