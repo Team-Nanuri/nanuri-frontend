@@ -14,6 +14,7 @@ import {
 } from "@/global/components/ui/drawer"
 import {ArticleStatus, ShareType} from "@/article/api/article-response.ts";
 import ArticleSearchHeader from "@/article/components/ArticleSearchHeader.tsx";
+import LoadingSpinner from "@/global/components/LoadingSpinner.tsx";
 
 
 export default function ArticleSearchPage() {
@@ -55,6 +56,7 @@ export default function ArticleSearchPage() {
         )
       }
       <section className="h-[calc(100%-100px)] overflow-auto">
+        {apiKeyword && !data && <LoadingSpinner/>}
 
         {apiKeyword &&  data?.pages.map((page, i) => (
           <Fragment key={i}>

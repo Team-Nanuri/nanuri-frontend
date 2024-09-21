@@ -1,6 +1,7 @@
 import useArticlePaging from "@/article/hooks/useArticlePaging.ts";
 import {Fragment} from "react";
 import ArticleItem from "@/article/components/ArticleItem.tsx";
+import LoadingSpinner from "@/global/components/LoadingSpinner.tsx";
 
 export default function ArticleLikePage() {
   const {
@@ -13,6 +14,7 @@ export default function ArticleLikePage() {
     <div className="w-full h-full">
       <LikeHeader/>
       <section className="h-[calc(100%-60px)] overflow-auto">
+        {!data && <LoadingSpinner/>}
         {data?.pages.map((page, i) => (
           <Fragment key={i}>
             {

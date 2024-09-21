@@ -5,6 +5,7 @@ import logo from "@/assets/logo.svg";
 import ArticleItem from "@/article/components/ArticleItem.tsx";
 import {Link} from "react-router-dom";
 import {ROUTER_PATH} from "@/global/const/const.ts";
+import LoadingSpinner from "@/global/components/LoadingSpinner.tsx";
 
 export default function ArticleHomePage() {
   const {
@@ -18,6 +19,7 @@ export default function ArticleHomePage() {
     <div className="w-full h-full">
       <HomeHeader/>
       <section className="h-[calc(100%-60px)] overflow-auto">
+        {!data && <LoadingSpinner/>}
         {data?.pages.map((page, i) => (
           <Fragment key={i}>
             {

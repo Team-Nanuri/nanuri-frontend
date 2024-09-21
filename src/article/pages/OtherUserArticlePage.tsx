@@ -6,6 +6,7 @@ import {ChevronLeft} from "lucide-react";
 import {useQuery} from "@tanstack/react-query";
 import {getOtherUserInfo} from "@/user/api/user-api.ts";
 import useArticlePaging from "@/article/hooks/useArticlePaging.ts";
+import LoadingSpinner from "@/global/components/LoadingSpinner.tsx";
 
 export default function OtherUserArticlePage() {
   const { userId } = useParams<{ userId: string }>();
@@ -35,6 +36,7 @@ export default function OtherUserArticlePage() {
       <div className="h-[8px] w-full bg-searchBarGrey mt-[8px]"/>
       <ArticleHeader/>
       <section className="h-[calc(100%-196px)] overflow-auto">
+        {!data && <LoadingSpinner/>}
         {data?.pages.map((page, i) => (
           <Fragment key={i}>
             {

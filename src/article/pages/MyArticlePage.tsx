@@ -5,6 +5,7 @@ import UserItem from "@/user/components/UserItem.tsx";
 import {useUser} from "@/user/hooks/useUser.ts";
 import {useNavigate} from "react-router-dom";
 import {ChevronLeft} from "lucide-react";
+import LoadingSpinner from "@/global/components/LoadingSpinner.tsx";
 
 export default function MyArticlePage() {
   const {user, error} = useUser();
@@ -24,6 +25,7 @@ export default function MyArticlePage() {
       <div className="h-[8px] w-full bg-searchBarGrey mt-[8px]"/>
       <ArticleHeader/>
       <section className="h-[calc(100%-196px)] overflow-auto">
+        {!data && <LoadingSpinner/>}
         {data?.pages.map((page, i) => (
           <Fragment key={i}>
             {

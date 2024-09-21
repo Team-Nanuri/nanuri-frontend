@@ -7,6 +7,7 @@ import ChatInputBox from "@/chat/components/ChatInputBox.tsx";
 import {ChatList} from "@/chat/components/ChatList.tsx";
 import useMessage from "@/chat/hooks/useMessage.ts";
 import {ChatSendRequest} from "@/chat/api/chat-request.ts";
+import LoadingSpinner from "@/global/components/LoadingSpinner.tsx";
 
 export default function ChatDetailPage() {
   const { roomId } = useParams<{ roomId: string }>();
@@ -20,7 +21,7 @@ export default function ChatDetailPage() {
     return <div>채팅방 정보를 불러오지 못했습니다.</div>;
   }
   if(!data) {
-    return <div>로딩 중...</div>;
+    return <LoadingSpinner/>;
   }
 
 
