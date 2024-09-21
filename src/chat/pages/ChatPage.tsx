@@ -2,6 +2,7 @@ import {Search} from "lucide-react";
 import {ChatRoomModel} from "@/chat/api/chat-response.ts";
 import useChatRoomPaging from "@/chat/hooks/useChatRoomPaging.ts";
 import {Fragment} from "react";
+import {Link} from "react-router-dom";
 
 export default function ChatPage() {
   const {
@@ -42,18 +43,19 @@ function ChatHeader() {
       <h1 className="font-normal text-[20px]">
         채팅
       </h1>
-      <Search/>
+      {/*<Search/>*/}
     </header>
   );
 }
 
 function RoomItem({chatRoom}: { chatRoom: ChatRoomModel }) {
   return (
-    <div className="
+    <Link className="
       h-[90px] w-full
       flex flex-row items-center justify-between
-      border-b
-    ">
+      border-b"
+        to={`/chat/${chatRoom.roomId}`}
+    >
       <img className="w-[60px] h-[60px] rounded-[6px] ml-[15px]" src={chatRoom.article.imageUrl} alt="#"/>
       <div className="pl-[12px] flex flex-col flex-grow justify-between h-full py-[16px] pr-[8px]">
         <div className="w-full flex flex-row items-center">
@@ -72,6 +74,6 @@ function RoomItem({chatRoom}: { chatRoom: ChatRoomModel }) {
           {chatRoom.lastMessage.message}
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

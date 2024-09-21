@@ -12,7 +12,7 @@ export function sendChatMessage(req: ChatSendRequest): Promise<void> {
 function genChatRoom(page: number, size: number): PagingResponse<ChatRoomModel> {
   const chatRooms: ChatRoomModel[] = [];
   for (let i = page * size; i < page * size + size; i++) {
-    const otherUser : UserModel = {
+    const otherUser: UserModel = {
       userType: 'FOREIGNER',
       id: i,
       username: `User ${i}`,
@@ -59,6 +59,28 @@ export async function getChatRoomPaging(params: PagingParams): Promise<PagingRes
 }
 
 export async function getChatRoomDetail(roomId: number): Promise<ChatDetailResponse> {
-  const res = await axiosClient.get(`/api/chat/${roomId}`);
-  return res.data;
+  // const res = await axiosClient.get(`/api/chat/${roomId}`);
+  // return res.data;
+  const messages = [...Array(30).fill(0).map((_, i) => {
+    return {
+      message: `Message ${i}`,
+      receiverId: i % 3 === 0 ? 1 : 3,
+      senderId: i % 3 === 0 ? 3 : 1,
+      createdAt: i===0 ? '2024-03-11' : i===29 ? '2025-12-23' :  new Date().toISOString(),
+    };
+  })]; // 닫는 괄호 수정
+  return {
+    roomId: roomId,
+    article: {
+      articleId: 1,
+      imageUrl: 'https://picsum.photos/200/300?random=1',
+      title: 'Article 1',
+      writer: {
+        username: 'User 1',
+        id: 1,
+        userType: 'FOREIGNER',
+      },
+    },
+    messages
+  }
 }
