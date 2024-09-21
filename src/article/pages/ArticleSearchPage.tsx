@@ -1,15 +1,37 @@
 import {ChevronDown, ChevronLeft, Search} from "lucide-react";
 import {Input} from "@/global/components/ui/input.tsx";
-import {useState} from "react";
+import {Fragment, useState} from "react";
 import {Badge} from "@/global/components/ui/badge.tsx";
+import useArticlePaging from "@/article/hooks/useArticlePaging.ts";
+import ArticleItem from "@/article/components/ArticleItem.tsx";
 
 export default function ArticleSearchPage() {
   const [searchKeyword, setSearchKeyword] = useState("");
+
+  const {
+    data,
+    isFetchingNextPage,
+    ref,
+  } = useArticlePaging();
 
   return (
     <div className="w-full h-full">
       <ArticleSearchHeader searchKeyword={searchKeyword} setSearchKeyword={setSearchKeyword}/>
       <ArticleSearchParamBox/>
+      <section className="h-[calc(100%-100px)] overflow-auto">
+        {data?.pages.map((page, i) => (
+          <Fragment key={i}>
+            {
+              page.contents.map(article => (
+                <ArticleItem key={article.articleId} article={article}/>
+              ))
+            }
+          </Fragment>
+        ))}
+        <div ref={ref}>
+          {isFetchingNextPage && 'Loading more...'}
+        </div>
+      </section>
     </div>
   );
 }

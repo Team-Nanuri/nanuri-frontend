@@ -3,6 +3,7 @@ import {Fragment} from "react";
 import {Heart, Search} from "lucide-react";
 import useArticlePaging from "@/article/hooks/useArticlePaging.ts";
 import logo from "@/assets/logo.svg";
+import ArticleItem from "@/article/components/ArticleItem.tsx";
 
 export default function ArticleHomePage() {
   const {
@@ -42,38 +43,7 @@ function HomeHeader() {
       px-[20px] bg-white border-b
     ">
       <img className="h-[28px] pb-[4px]" src={logo} alt={"#"}/>
-      <Search />
+      <Search/>
     </header>
-  );
-}
-
-interface ArticleItemProps {
-  article: ArticleModel;
-}
-
-function ArticleItem({article}: ArticleItemProps) {
-  return (
-    <div className="h-[130px] flex flex-row justify-center items-center border-b">
-      <img className="mx-[12px] w-[96px] h-[96px]" src={article.imageUrl} alt="#"/>
-
-      <div className="h-full flex-grow flex flex-col pr-[12px] py-[12px]">
-        <div className="w-full mr-[12px] flex flex-row justify-between">
-          <div className="font-semibold text-[14px]">
-            {article.title}
-          </div>
-          <div className="font-normal text-[12px]">
-            {shareTypeToKorean(article.shareType)}
-          </div>
-        </div>
-        <div className="flex-[1] font-normal text-[12px]">
-          {article.content}
-        </div>
-        <div className="flex flex-row">
-          <div className="flex-grow" />
-          {article.liked && <Heart color="#ff0000" fill="#ff0000" />}
-          {!article.liked && <Heart />}
-        </div>
-      </div>
-    </div>
   );
 }
