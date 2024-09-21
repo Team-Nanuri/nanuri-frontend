@@ -2,6 +2,7 @@ import {ArticleModel, shareTypeToKorean} from "@/article/api/article-response.ts
 import {Fragment} from "react";
 import {Heart, Search} from "lucide-react";
 import useArticlePaging from "@/article/hooks/useArticlePaging.ts";
+import logo from "@/assets/logo.svg";
 
 export default function ArticleHomePage() {
   const {
@@ -40,7 +41,7 @@ function HomeHeader() {
       h-[60px] flex flex-row justify-between items-center
       px-[20px] bg-white border-b
     ">
-      <img className="h-[28px] pb-[4px]" src={"src/assets/logo.png"} alt={"#"}/>
+      <img className="h-[28px] pb-[4px]" src={logo} alt={"#"}/>
       <Search />
     </header>
   );
