@@ -61,9 +61,11 @@ export default function ArticleSearchPage() {
             }
           </Fragment>
         ))}
-        <div ref={ref}>
-          {apiKeyword && isFetchingNextPage && 'Loading more...'}
-        </div>
+        {apiKeyword && (
+          <div ref={ref}>
+            {isFetchingNextPage && 'Loading more...'}
+          </div>
+        )}
       </section>
     </div>
   );
@@ -217,7 +219,7 @@ export function DrawerArticleStatus(
             <DrawerClose asChild>
               <button
                 className="flex-[1] bg-[#f0f0f0] p-4 rounded-md"
-                onClick={()=>setShareType(undefined)}
+                onClick={()=>setStatus(undefined)}
               >
                 취소
               </button>
