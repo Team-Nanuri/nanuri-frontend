@@ -14,13 +14,23 @@ interface UseUserArticlePagingProps {
   status?: ArticleStatus;
 }
 
+interface UseUserArticlePagingReturn {
+  data: InfiniteData<PagingResponse<ArticleModel>> | undefined;
+  ref: (node?: (Element | null)) => void;
+  isFetching: boolean;
+  isFetchingNextPage: boolean;
+  likeClick: (articleId: number) => void;
+  dislikeClick: (articleId: number) => void;
+
+}
+
 export default function useArticlePaging(
   {
     userId,
     shareType,
     keyword,
     status,
-  }: UseUserArticlePagingProps) {
+  }: UseUserArticlePagingProps) : UseUserArticlePagingReturn {
   const queryKey: QueryKey = [
     'articles', userId, shareType, keyword, status
   ];
@@ -78,6 +88,12 @@ export default function useArticlePaging(
     data,
     ref,
     isFetching,
-    isFetchingNextPage
+    isFetchingNextPage,
+    likeClick: (articleId) => {
+      console.log("likeButtonClick", articleId);
+    },
+    dislikeClick: (articleId) => {
+      console.log("dislikeButtonClick", articleId);
+    }
   }
 }

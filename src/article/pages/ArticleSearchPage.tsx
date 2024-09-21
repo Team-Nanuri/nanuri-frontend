@@ -27,6 +27,8 @@ export default function ArticleSearchPage() {
     data,
     isFetchingNextPage,
     ref,
+    likeClick,
+    dislikeClick,
   } = useArticlePaging({
     keyword: apiKeyword,
     shareType,
@@ -62,7 +64,12 @@ export default function ArticleSearchPage() {
           <Fragment key={i}>
             {
               page.contents.map(article => (
-                <ArticleItem key={article.articleId} article={article}/>
+                <ArticleItem
+                  key={article.articleId}
+                  article={article}
+                  likeClick={likeClick}
+                  dislikeClick={dislikeClick}
+                />
               ))
             }
           </Fragment>
