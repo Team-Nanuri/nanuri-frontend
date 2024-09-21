@@ -61,6 +61,14 @@ export async function getChatRoomPaging(params: PagingParams): Promise<PagingRes
 export async function getChatRoomDetail(roomId: number): Promise<ChatDetailResponse> {
   // const res = await axiosClient.get(`/api/chat/${roomId}`);
   // return res.data;
+  const messages = [...Array(30).fill(0).map((_, i) => {
+    return {
+      message: `Message ${i}`,
+      receiverId: i % 3 === 0 ? 1 : 3,
+      senderId: i % 3 === 0 ? 3 : 1,
+      createdAt: i===0 ? '2024-03-11' : i===29 ? '2025-12-23' :  new Date().toISOString(),
+    };
+  })]; // 닫는 괄호 수정
   return {
     roomId: roomId,
     article: {
@@ -73,37 +81,6 @@ export async function getChatRoomDetail(roomId: number): Promise<ChatDetailRespo
         userType: 'FOREIGNER',
       },
     },
-    messages: [
-      {
-        message: 'Message 1',
-        receiverId: 1,
-        senderId: 3,
-        createdAt: new Date().toISOString(),
-      },
-      {
-        message: 'Message 2',
-        receiverId: 1,
-        senderId: 3,
-        createdAt: new Date().toISOString(),
-      },
-      {
-        message: 'Message 3',
-        receiverId: 1,
-        senderId: 3,
-        createdAt: new Date().toISOString(),
-      },
-      {
-        message: 'Message 4',
-        receiverId: 3,
-        senderId: 1,
-        createdAt: new Date().toISOString(),
-      },
-      {
-        message: 'Message 5',
-        receiverId: 1,
-        senderId: 3,
-        createdAt: new Date().toISOString(),
-      },
-    ]
+    messages
   }
 }
