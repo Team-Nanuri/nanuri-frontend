@@ -1,8 +1,8 @@
-import {QueryKey, useInfiniteQuery} from "@tanstack/react-query";
+import {QueryKey, useInfiniteQuery, useMutation, useQueryClient} from "@tanstack/react-query";
 import {ApiError, PagingResponse} from "@/global/api/response.ts";
 import {ArticleModel, ArticleStatus, ShareType} from "@/article/api/article-response.ts";
 import type {InfiniteData} from "@tanstack/query-core";
-import {getArticlePaging} from "@/article/api/article-api.ts";
+import {getArticlePaging, likeArticle} from "@/article/api/article-api.ts";
 import {useInView} from "react-intersection-observer";
 import {useEffect} from "react";
 import {ArticlePagingParams} from "@/article/api/article-request.ts";
@@ -83,6 +83,50 @@ export default function useArticlePaging(
     }
   }, [inView, data?.pages.length, isFetching, hasNextPage, fetchNextPage]);
 
+  const queryClient = useQueryClient();
+  const updateLikeStatus = async (articleId: number, liked: boolean) => {
+    const previousData: InfiniteData<PagingResponse<ArticleModel>> | undefined = queryClient.getQueryData(queryKey);
+    if (!previousData) return;
+
+    const updatedPages = previousData.pages.map(page => {
+      const articleIndex = page.contents.findIndex(article => article.articleId === articleId);
+
+      // 찾은 경우에만 업데이트
+      if (articleIndex !== -1) {
+        const updatedContents = page.contents.map(article =>
+          article.articleId === articleId ? { ...article, liked } : article
+        );
+        return { ...page, contents: updatedContents };
+      }
+
+      return page;
+    });
+
+    queryClient.setQueryData<InfiniteData<PagingResponse<ArticleModel>>>(queryKey, {
+      ...previousData,
+      pages: updatedPages,
+    });
+  };
+
+  const likeMutation = useMutation({
+    mutationFn: async (articleId: number) => {
+      await likeArticle(articleId);
+    },
+    onMutate: async (articleId: number) => {
+      console.log("onMutate", articleId);
+      await updateLikeStatus(articleId, true); // liked를 true로 설정
+    }
+  });
+
+  const unlikeMutation = useMutation({
+    mutationFn: async (articleId: number) => {
+      await likeArticle(articleId);
+    },
+    onMutate: async (articleId: number) => {
+      console.log("onMutate", articleId);
+      await updateLikeStatus(articleId, false); // liked를 false로 설정
+    }
+  });
 
   return {
     data,
@@ -90,10 +134,10 @@ export default function useArticlePaging(
     isFetching,
     isFetchingNextPage,
     likeClick: (articleId) => {
-      console.log("likeButtonClick", articleId);
+      likeMutation.mutate(articleId);
     },
     dislikeClick: (articleId) => {
-      console.log("dislikeButtonClick", articleId);
+      unlikeMutation.mutate(articleId);
     }
   }
 }
