@@ -4,6 +4,8 @@ import {Heart, Search} from "lucide-react";
 import useArticlePaging from "@/article/hooks/useArticlePaging.ts";
 import logo from "@/assets/logo.svg";
 import ArticleItem from "@/article/components/ArticleItem.tsx";
+import {Link} from "react-router-dom";
+import {ROUTER_PATH} from "@/global/const/const.ts";
 
 export default function ArticleHomePage() {
   const {
@@ -43,7 +45,10 @@ function HomeHeader() {
       px-[20px] bg-white border-b
     ">
       <img className="h-[28px] pb-[4px]" src={logo} alt={"#"}/>
-      <Search/>
+      <Link to={ROUTER_PATH.SEARCH}>
+        <Search/>
+      </Link>
+
     </header>
   );
 }

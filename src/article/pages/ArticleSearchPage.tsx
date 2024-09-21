@@ -4,6 +4,8 @@ import {Fragment, useState} from "react";
 import {Badge} from "@/global/components/ui/badge.tsx";
 import useArticlePaging from "@/article/hooks/useArticlePaging.ts";
 import ArticleItem from "@/article/components/ArticleItem.tsx";
+import {Link} from "react-router-dom";
+import {ROUTER_PATH} from "@/global/const/const.ts";
 
 export default function ArticleSearchPage() {
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -14,9 +16,17 @@ export default function ArticleSearchPage() {
     ref,
   } = useArticlePaging();
 
+  const onSearchClicked = () => {
+    alert(`검색어: ${searchKeyword}!`);
+  }
+
   return (
     <div className="w-full h-full">
-      <ArticleSearchHeader searchKeyword={searchKeyword} setSearchKeyword={setSearchKeyword}/>
+      <ArticleSearchHeader
+        searchKeyword={searchKeyword}
+        setSearchKeyword={setSearchKeyword}
+        onSearchClicked={onSearchClicked}
+      />
       <ArticleSearchParamBox/>
       <section className="h-[calc(100%-100px)] overflow-auto">
         {data?.pages.map((page, i) => (
@@ -40,22 +50,32 @@ export default function ArticleSearchPage() {
 interface SearchHeaderProps {
   searchKeyword: string;
   setSearchKeyword: (keyword: string) => void;
+  onSearchClicked: () => void;
 }
 
-function ArticleSearchHeader({searchKeyword, setSearchKeyword}: SearchHeaderProps) {
+function ArticleSearchHeader({searchKeyword, setSearchKeyword, onSearchClicked}: SearchHeaderProps) {
   return (
     <header className="
       h-[60px] flex flex-row justify-between items-center
       px-[20px] bg-white border-b
     ">
-      <ChevronLeft/>
+      <Link to={ROUTER_PATH.HOME}>
+        <ChevronLeft/>
+      </Link>
       <Input
         className="mx-[12px] bg-searchBarGrey"
         placeholder="검색어를 입력하세요"
         value={searchKeyword}
         onChange={(e) => setSearchKeyword(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            onSearchClicked();
+          }
+        }}
       />
-      <Search/>
+      <button onClick={onSearchClicked}>
+        <Search/>
+      </button>
     </header>
   );
 }
