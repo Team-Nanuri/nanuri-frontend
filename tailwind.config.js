@@ -59,6 +59,9 @@ export default {
                 'primaryGreen': '#08A65C',
                 'textWhiteForGreen': '#F5F5F5',
                 'searchBarGrey': '#F0F0F0',
+                'chatGreen': '#5DB169',
+                'chatWhiteForGreen': '#F5F5F5',
+                'chatGrey': '#F3F3F3',
             }
         }
     },

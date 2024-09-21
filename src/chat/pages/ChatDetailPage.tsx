@@ -1,17 +1,23 @@
 import {Link, useParams} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
 import {getChatRoomDetail} from "@/chat/api/chat-api.ts";
-import {ArticleSimpleModel, MessageModel} from "@/chat/api/chat-response.ts";
+import {ArticleSimpleModel, ChatDetailResponse} from "@/chat/api/chat-response.ts";
 import {ROUTER_PATH} from "@/global/const/const.ts";
 import {ChevronLeft} from "lucide-react";
 import {useState} from "react";
 import ChatInputBox from "@/chat/components/ChatInputBox.tsx";
+import {ChatList} from "@/chat/components/ChatList.tsx";
+import {ApiError} from "@/global/api/response.ts";
 
 export default function ChatDetailPage() {
   const { roomId } = useParams<{ roomId: string }>();
   const [sendMessage, setSendMessage] = useState("");
 
-  const {data, isError} = useQuery({
+  const {data, error} = useQuery<
+    ChatDetailResponse,
+    ApiError,
+    ChatDetailResponse
+  >({
     queryKey: ['chat', roomId],
     queryFn: async () => {
       return await getChatRoomDetail(Number(roomId));
@@ -19,7 +25,7 @@ export default function ChatDetailPage() {
     gcTime: 1000 * 60 * 5, // 5분
   });
 
-  if(isError) {
+  if(error) {
     return <div>채팅방 정보를 불러오지 못했습니다.</div>;
   }
   if(!data) {
@@ -64,27 +70,5 @@ function ChatDetailHeader({articleSimple}: { articleSimple: ArticleSimpleModel }
       </div>
       <div className="w-[24px]"/>
     </header>
-  );
-}
-
-function ChatList({messages}: { messages: MessageModel[] }) {
-  return (
-    <div className="w-full h-full">
-      {messages.map((message,index) => (
-        <ChatMessage key={index} message={message}/>
-      ))}
-    </div>
-  );
-}
-
-interface ChatMessageProps {
-
-}
-
-function ChatMessage({message}: { message: MessageModel }) {
-  return (
-    <div>
-      {message.message}
-    </div>
   );
 }
