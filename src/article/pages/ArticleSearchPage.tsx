@@ -30,10 +30,12 @@ export default function ArticleSearchPage() {
     shareType,
   });
 
+
   const onSearchClicked = () => {
     alert(`검색어: ${searchKeyword}!`);
     setApiKeyword(searchKeyword);
   }
+
 
   return (
     <div className="w-full h-full">
@@ -44,7 +46,8 @@ export default function ArticleSearchPage() {
       />
       <ArticleSearchParamBox shareType={shareType} setShareType={setShareType}/>
       <section className="h-[calc(100%-100px)] overflow-auto">
-        {data?.pages.map((page, i) => (
+
+        {apiKeyword &&  data?.pages.map((page, i) => (
           <Fragment key={i}>
             {
               page.contents.map(article => (
@@ -54,7 +57,7 @@ export default function ArticleSearchPage() {
           </Fragment>
         ))}
         <div ref={ref}>
-          {isFetchingNextPage && 'Loading more...'}
+          {apiKeyword && isFetchingNextPage && 'Loading more...'}
         </div>
       </section>
     </div>
@@ -129,14 +132,6 @@ export function DrawerDemo(
               <DrawerClose asChild>
                 <button
                   className="flex-[1] bg-[#f0f0f0] p-4 rounded-md"
-                  onClick={()=>setShareType(undefined)}
-                >
-                  취소
-                </button>
-              </DrawerClose>
-              <DrawerClose asChild>
-                <button
-                  className="flex-[1] bg-[#f0f0f0] p-4 rounded-md"
                   onClick={()=>setShareType("DONATE")}
                 >
                   나눔
@@ -151,6 +146,15 @@ export function DrawerDemo(
                 </button>
               </DrawerClose>
             </div>
+
+            <DrawerClose asChild>
+              <button
+                className="flex-[1] bg-[#f0f0f0] p-4 rounded-md"
+                onClick={()=>setShareType(undefined)}
+              >
+                취소
+              </button>
+            </DrawerClose>
 
           </DrawerFooter>
         </div>
