@@ -1,17 +1,20 @@
 import React, { ChangeEvent, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { ChevronDown, ChevronLeft, ChevronRight, Section } from "lucide-react";
 import { useUser } from "@/user/hooks/useUser";
 import styles from "./ArticleAddPage.module.css";
-import profile from "@/assets/profile.png";
 import chevronright from "@/assets/chevron-right.svg";
 import close from "@/assets/close.svg";
 import del from "@/assets/delete.svg";
 import camera from "@/assets/camera.svg";
 
 export default function ArticleAddPage() {
+  const navigate = useNavigate();
   const [postImg, setPostImg] = useState<File[]>([]);
   const [previewImg, setPreviewImg] = useState<string[]>([]);
   const maxFiles = 5;
+  const [titleContent, setTitleContent] = useState<string>(''); // 문자열 상태
+  const maxCharacters: number = 20;
 
   //이미지 업로드 핸들러
   function uploadFile(e: ChangeEvent<HTMLInputElement>): void {
@@ -60,14 +63,29 @@ export default function ArticleAddPage() {
     setSelectedType(type);  // 선택한 타입 저장
   }
 
+ // 입력 값 변경 처리 함수
+ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const inputValue: string = e.target.value;
+  if (inputValue.length <= maxCharacters) {
+    setTitleContent(inputValue);
+  }
+};
+
+ const navigateHome = () => {
+  navigate("/");
+};
+
+const goBack = () => {
+  navigate(-1);
+};
   return (
     <div className="w-full h-full p-[20px]">
       <header className={styles.header}>
-        <button className={styles.backButton}>
+        <button className={styles.backButton} onClick={goBack}>
           <img src={chevronright} alt="back" />
         </button>
 
-        <button className={styles.closeButton}>
+        <button className={styles.closeButton} onClick={navigateHome}>
           <img src={close} alt="close" />
         </button>
       </header>
@@ -148,10 +166,16 @@ export default function ArticleAddPage() {
     </button>
     </div>
 
-    <div className={styles.contentContainer}>         
+    <div className={styles.contentContainer}>   
     <label>제목</label>
-    <input className={styles.titleInput}  />
-    
+    <div className={styles.inputTitleWrapper}>      
+    <input 
+    type="text"
+    className={styles.titleInput} 
+    value={titleContent}
+    onChange={handleInputChange}  />
+    <span className={styles.charCount}>{`${titleContent.length}/${maxCharacters}`}</span>
+    </div>
     <label>본문</label>
     <textarea className={styles.contentInput} />
      </div>
