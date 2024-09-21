@@ -11,7 +11,7 @@ export default function ArticleHomePage() {
     data,
     isFetchingNextPage,
     ref,
-  } = useArticlePaging();
+  } = useArticlePaging({});
 
 
   return (

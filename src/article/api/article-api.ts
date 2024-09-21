@@ -9,13 +9,13 @@ import {
 } from "@/article/api/article-request.ts";
 
 
-function genArticle(page:number, size: number): PagingResponse<ArticleModel> {
+function genArticle(page:number, size: number,keyword:string): PagingResponse<ArticleModel> {
   const articles : ArticleModel[]= [];
   for(let i = page*size; i <page*size+ size; i++) {
     const article: ArticleModel = {
       articleId: i,
       title: `Article ${i}`,
-      content: `Article content ${i}`,
+      content: `Article content ${i} ${keyword}`,
       imageUrl: `https://picsum.photos/200/300?random=${i}`,
       createdAt: new Date(),
       shareType: 'DONATE',
@@ -39,7 +39,7 @@ export async function getArticlePaging(params: ArticlePagingParams): Promise<Pag
   // });
   // return res.data;
 
-  const data = genArticle(params.page, params.size);
+  const data = genArticle(params.page, params.size,params.keyword);
   console.log('paing api 콜!',params, data);
   await new Promise(resolve => setTimeout(resolve, 1000));
   return data;

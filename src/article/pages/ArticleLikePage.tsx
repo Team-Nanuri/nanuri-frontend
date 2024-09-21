@@ -7,7 +7,7 @@ export default function ArticleLikePage() {
     data,
     isFetchingNextPage,
     ref,
-  } = useArticlePaging();
+  } = useArticlePaging({});
 
   return (
     <div className="w-full h-full">

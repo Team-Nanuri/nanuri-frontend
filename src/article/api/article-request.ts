@@ -4,7 +4,8 @@ export interface ArticlePagingParams {
   page: number;
   size: number;
   writerId?: number;
-  string?: string;
+  categories?: string;
+  keyword?: string;
   shareType?: ShareType;
 }
 

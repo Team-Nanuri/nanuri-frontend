@@ -10,15 +10,17 @@ import {ArticlePagingParams} from "@/article/api/article-request.ts";
 interface UseUserArticlePagingProps {
   userId?: number;
   shareType?: ShareType;
+  keyword?: string;
 }
 
 export default function useArticlePaging(
   {
     userId,
     shareType,
+    keyword,
   }: UseUserArticlePagingProps) {
   const queryKey: QueryKey = [
-    'articles', userId, shareType
+    'articles', userId, shareType, keyword
   ];
 
 
@@ -40,7 +42,8 @@ export default function useArticlePaging(
       page: 0,
       size: 10,
       writerId: userId,
-      shareType: shareType,
+      shareType,
+      keyword,
     },
     queryFn: async context => {
       return await getArticlePaging(context.pageParam);

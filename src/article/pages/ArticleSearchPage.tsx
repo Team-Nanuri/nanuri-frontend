@@ -8,15 +8,19 @@ import {useNavigate} from "react-router-dom";
 
 export default function ArticleSearchPage() {
   const [searchKeyword, setSearchKeyword] = useState("");
+  const [apiKeyword, setApiKeyword] = useState<string | undefined>(undefined);
 
   const {
     data,
     isFetchingNextPage,
     ref,
-  } = useArticlePaging();
+  } = useArticlePaging({
+    keyword: apiKeyword,
+  });
 
   const onSearchClicked = () => {
     alert(`검색어: ${searchKeyword}!`);
+    setApiKeyword(searchKeyword);
   }
 
   return (
