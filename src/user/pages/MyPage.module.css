@@ -30,15 +30,15 @@
     margin-top: 30px;
 }
 .adminButton{
+    width: 100%;
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     height: 40px;
-    margin-left: 17px;
+    padding: 0 10px 0 20px;
     cursor: pointer;
 }
 
-.adminButton img{
-    margin-left: 250px;
-}
 
 
 .settingButton{

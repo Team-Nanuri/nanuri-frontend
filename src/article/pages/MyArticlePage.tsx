@@ -3,18 +3,20 @@ import useArticlePaging from "@/article/hooks/useArticlePaging.ts";
 import {Fragment} from "react";
 import UserItem from "@/user/components/UserItem.tsx";
 import {useUser} from "@/user/hooks/useUser.ts";
-import {Link, useNavigate} from "react-router-dom";
-import {ROUTER_PATH} from "@/global/const/const.ts";
+import {useNavigate} from "react-router-dom";
 import {ChevronLeft} from "lucide-react";
+import LoadingSpinner from "@/global/components/LoadingSpinner.tsx";
 
 export default function MyArticlePage() {
+  const {user, error} = useUser();
   const {
     data,
     ref,
     isFetchingNextPage,
-  } = useArticlePaging();
+  } = useArticlePaging({
+    userId: user?.id,
+  });
 
-  const {user, error} = useUser();
 
   return (
     <div className="w-full h-full">
@@ -23,6 +25,7 @@ export default function MyArticlePage() {
       <div className="h-[8px] w-full bg-searchBarGrey mt-[8px]"/>
       <ArticleHeader/>
       <section className="h-[calc(100%-196px)] overflow-auto">
+        {!data && <LoadingSpinner/>}
         {data?.pages.map((page, i) => (
           <Fragment key={i}>
             {

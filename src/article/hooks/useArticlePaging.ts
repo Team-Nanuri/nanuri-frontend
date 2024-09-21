@@ -1,15 +1,30 @@
 import {QueryKey, useInfiniteQuery} from "@tanstack/react-query";
 import {ApiError, PagingResponse} from "@/global/api/response.ts";
-import {ArticleModel} from "@/article/api/article-response.ts";
+import {ArticleModel, ArticleStatus, ShareType} from "@/article/api/article-response.ts";
 import type {InfiniteData} from "@tanstack/query-core";
 import {getArticlePaging} from "@/article/api/article-api.ts";
 import {useInView} from "react-intersection-observer";
 import {useEffect} from "react";
+import {ArticlePagingParams} from "@/article/api/article-request.ts";
 
-export default function useArticlePaging() {
+interface UseUserArticlePagingProps {
+  userId?: number;
+  shareType?: ShareType;
+  keyword?: string;
+  status?: ArticleStatus;
+}
+
+export default function useArticlePaging(
+  {
+    userId,
+    shareType,
+    keyword,
+    status,
+  }: UseUserArticlePagingProps) {
   const queryKey: QueryKey = [
-    'articles', // 쿼리의 고유한 식별자
+    'articles', userId, shareType, keyword, status
   ];
+
 
   const {
     data,
@@ -20,22 +35,27 @@ export default function useArticlePaging() {
   } = useInfiniteQuery<
     PagingResponse<ArticleModel>,
     ApiError,
-    InfiniteData<PagingResponse<ArticleModel>>
+    InfiniteData<PagingResponse<ArticleModel>>,
+    QueryKey,
+    ArticlePagingParams
   >({
     queryKey: queryKey,
-    initialPageParam: {page: 0, size: 10},
+    initialPageParam: {
+      page: 0,
+      size: 10,
+      writerId: userId,
+      shareType,
+      keyword,
+      status,
+    },
     queryFn: async context => {
-      const p = context.pageParam;
-      return await getArticlePaging({
-        page: p.page,
-        size: p.size,
-      });
+      return await getArticlePaging(context.pageParam);
     },
     getNextPageParam: (lastPage, allPages, lastPageParam) => {
-      if(lastPage.totalPages <= lastPageParam.page + 1) return null;
+      if (lastPage.totalPages <= lastPageParam.page + 1) return null;
       return {
+        ...lastPageParam,
         page: lastPageParam.page + 1,
-        size: lastPageParam.size,
       };
     },
 

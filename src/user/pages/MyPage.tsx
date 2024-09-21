@@ -1,6 +1,9 @@
 import { useUser } from "../hooks/useUser";
 import styles from "./MyPage.module.css";
 import profile from "@/assets/profile.svg";
+import {Link} from "react-router-dom";
+import {ROUTER_PATH} from "@/global/const/const.ts";
+import {ChevronLeft, ChevronRight} from "lucide-react";
 
 export default function MyPage() {
   const { user, error } = useUser();
@@ -9,7 +12,9 @@ export default function MyPage() {
     <div className="w-full h-full">
       <div className={styles.header}>
         <div className={styles.header_content}>
-          <img src={profile} />
+          <Link to={ROUTER_PATH.MY_ARTICLE}>
+            <img src={profile}/>
+          </Link>
           {error && <p>Error loading user info</p>}
           {user ? (
             <div className={styles.user}>
@@ -45,8 +50,10 @@ interface AdminButtonProps {
 export function AdminButton({ label }: AdminButtonProps) {
   return (
     <button className={styles.adminButton}>
-      {label}
-      <img src={"/src/assets/chevron-left.svg"} />
+      <div>
+        {label}
+      </div>
+      <ChevronRight/>
     </button>
   );
 }

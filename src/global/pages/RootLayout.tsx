@@ -2,6 +2,7 @@ import {Outlet, useLocation, useNavigate} from "react-router-dom";
 import {Suspense, useEffect} from "react";
 import {ErrorBoundary} from "react-error-boundary";
 import {useUser} from "@/user/hooks/useUser.ts";
+import LoadingSpinner from "@/global/components/LoadingSpinner.tsx";
 
 export default function RootLayout() {
 
@@ -25,7 +26,7 @@ export default function RootLayout() {
     <div className="w-full h-dvh flex justify-center bg-bgCanvasWhite overflow-y-auto overflow-x-hidden">
       <div className="w-full max-w-[430px] bg-bgPrimaryWhite">
         <ErrorBoundary fallback={<div>Error</div>}>
-          <Suspense fallback={<div>loading</div>}>
+          <Suspense fallback={<LoadingSpinner />}>
             <Outlet/>
           </Suspense>
         </ErrorBoundary>

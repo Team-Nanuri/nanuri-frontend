@@ -1,10 +1,12 @@
-import useArticlePaging from "@/article/hooks/useArticlePaging.ts";
-import {useUser} from "@/user/hooks/useUser.ts";
 import UserItem from "@/user/components/UserItem.tsx";
 import {Fragment} from "react";
 import ArticleItem from "@/article/components/ArticleItem.tsx";
 import {useNavigate, useParams} from "react-router-dom";
 import {ChevronLeft} from "lucide-react";
+import {useQuery} from "@tanstack/react-query";
+import {getOtherUserInfo} from "@/user/api/user-api.ts";
+import useArticlePaging from "@/article/hooks/useArticlePaging.ts";
+import LoadingSpinner from "@/global/components/LoadingSpinner.tsx";
 
 export default function OtherUserArticlePage() {
   const { userId } = useParams<{ userId: string }>();
@@ -13,18 +15,28 @@ export default function OtherUserArticlePage() {
     data,
     ref,
     isFetchingNextPage,
-  } = useArticlePaging();
-  console.log(userId);
+  } = useArticlePaging({
+    userId: Number(userId),
+  });
 
-  const {user, error} = useUser();
+
+
+  const {data: user, error: userError} = useQuery({
+    queryKey: ['user', userId],
+    queryFn: async () => {
+      return await getOtherUserInfo(Number(userId));
+    },
+  })
+
 
   return (
     <div className="w-full h-full">
       <BackButtonHeader/>
-      <UserItem user={user} error={error} />
+      <UserItem user={user} error={userError} />
       <div className="h-[8px] w-full bg-searchBarGrey mt-[8px]"/>
       <ArticleHeader/>
       <section className="h-[calc(100%-196px)] overflow-auto">
+        {!data && <LoadingSpinner/>}
         {data?.pages.map((page, i) => (
           <Fragment key={i}>
             {
