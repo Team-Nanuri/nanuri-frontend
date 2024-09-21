@@ -12,7 +12,6 @@ export default function RootLayout() {
   const isLoginPath = !isAuthPath;
 
   useEffect(() => {
-    console.log(`RootLayout useEffect ${location.pathname} user:${user} e:${error} au: ${isAuthPath} lo: ${isLoginPath}`);
     if(user && isAuthPath) {
       navigate("/");
     }
