@@ -5,13 +5,14 @@ import type {InfiniteData} from "@tanstack/query-core";
 import {getArticlePaging, likeArticle} from "@/article/api/article-api.ts";
 import {useInView} from "react-intersection-observer";
 import {useEffect} from "react";
-import {ArticlePagingParams} from "@/article/api/article-request.ts";
+import {ArticlePagingParams, ArticleSort} from "@/article/api/article-request.ts";
 
 interface UseUserArticlePagingProps {
   userId?: number;
   shareType?: ShareType;
   keyword?: string;
   status?: ArticleStatus;
+  sort?: ArticleSort;
 }
 
 interface UseUserArticlePagingReturn {
@@ -30,9 +31,10 @@ export default function useArticlePaging(
     shareType,
     keyword,
     status,
+    sort= "CREATED_AT_DESC",
   }: UseUserArticlePagingProps) : UseUserArticlePagingReturn {
   const queryKey: QueryKey = [
-    'articles', userId, shareType, keyword, status
+    'articles', userId, shareType, keyword, status, sort
   ];
 
 
@@ -57,6 +59,7 @@ export default function useArticlePaging(
       shareType,
       keyword,
       status,
+      sort
     },
     queryFn: async context => {
       return await getArticlePaging(context.pageParam);

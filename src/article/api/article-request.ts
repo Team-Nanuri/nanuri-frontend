@@ -8,8 +8,10 @@ export interface ArticlePagingParams {
   keyword?: string;
   shareType?: ShareType;
   status?: ArticleStatus;
+  sort?: ArticleSort;
 }
 
+export type ArticleSort = "CREATED_AT_ASC" | "CREATED_AT_DESC";
 
 
 
