@@ -3,12 +3,12 @@ import {Checkbox} from "@/global/components/ui/checkbox.tsx";
 import {Select} from "@/global/components/ui/select.tsx";
 export default function SignupPage() {
   return (
-    <div className="w-full flex flex-col">
+    <div className="w-full h-full flex flex-col">
 
-      <div className="flex items-center w-full h-[40px] font-bold text-[24px] fixed z-10 p-[24px] bg-bgPrimaryWhite">
+      <div className="flex items-center w-full h-[40px] font-bold text-[24px] p-[24px] bg-bgPrimaryWhite">
         회원가입
       </div>
-      <div className="h-[calc(100%-40px)]  w-full p-[24px]">
+      <div className="h-[calc(100%-40px)] w-full p-[24px]  overflow-auto">
         <div className="h-[40px]"/>
         <div className="font-normal text-[18px] mb-1">
           유저네임
