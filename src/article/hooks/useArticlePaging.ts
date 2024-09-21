@@ -43,7 +43,7 @@ export default function useArticlePaging(
     isFetchingNextPage,
     isFetching,
     hasNextPage,
-    fetchNextPage
+    fetchNextPage,
   } = useInfiniteQuery<
     PagingResponse<ArticleModel>,
     ApiError,

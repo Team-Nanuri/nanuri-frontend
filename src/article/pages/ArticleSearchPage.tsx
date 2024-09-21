@@ -15,6 +15,7 @@ import {
 import {ArticleStatus, ShareType} from "@/article/api/article-response.ts";
 import ArticleSearchHeader from "@/article/components/ArticleSearchHeader.tsx";
 import LoadingSpinner from "@/global/components/LoadingSpinner.tsx";
+import {ArticleSort} from "@/article/api/article-request.ts";
 
 
 export default function ArticleSearchPage() {
@@ -22,6 +23,7 @@ export default function ArticleSearchPage() {
   const [apiKeyword, setApiKeyword] = useState<string | undefined>(undefined);
   const [shareType, setShareType] = useState<ShareType | undefined>(undefined);
   const [status, setStatus] = useState<ArticleStatus | undefined>(undefined);
+  const [sort, setSort] = useState<ArticleSort | undefined>(undefined);
 
   const {
     data,
@@ -33,6 +35,7 @@ export default function ArticleSearchPage() {
     keyword: apiKeyword,
     shareType,
     status,
+    sort,
   });
 
 
@@ -54,6 +57,7 @@ export default function ArticleSearchPage() {
           <ArticleSearchParamBox
             shareType={shareType} setShareType={setShareType}
             status={status} setStatus={setStatus}
+            sort={sort} setSort={setSort}
           />
         )
       }
@@ -84,11 +88,13 @@ export default function ArticleSearchPage() {
   );
 }
 
-function ArticleSearchParamBox({shareType, setShareType, status, setStatus}: {
+function ArticleSearchParamBox({shareType, setShareType, status, setStatus, sort, setSort}: {
   shareType: ShareType | undefined,
   setShareType: (shareType?: ShareType) => void,
   status: ArticleStatus | undefined,
   setStatus: (status?: ArticleStatus) => void,
+  sort: ArticleSort | undefined,
+  setSort: (sort: ArticleSort) => void,
 }){
   return (
     <div
@@ -102,12 +108,7 @@ function ArticleSearchParamBox({shareType, setShareType, status, setStatus}: {
         </div>
         <ChevronDown />
       </Badge>
-      <Badge variant="secondary" className="pr-1">
-        <div>
-          정렬
-        </div>
-        <ChevronDown />
-      </Badge>
+      <DrawerArticleSort sort={sort} setSort={setSort}/>
       <DrawerShareType shareType={shareType} setShareType={setShareType}/>
       <DrawerArticleStatus status={status} setStatus={setStatus}/>
     </div>
@@ -244,3 +245,70 @@ export function DrawerArticleStatus(
     </Drawer>
   )
 }
+
+
+export function DrawerArticleSort(
+  {sort, setSort}: {
+    sort?: ArticleSort,
+    setSort: (sort?: ArticleSort) => void
+  }
+){
+  let label = '정렬';
+  if(sort==='CREATED_AT_DESC'){
+    label = '최신순';
+  }else if(sort==='CREATED_AT_ASC'){
+    label = '등록일순';
+  }
+
+  return (
+    <Drawer>
+      <DrawerTrigger asChild>
+        <Badge variant="secondary" className="pr-1">
+          <div>
+            {label}
+          </div>
+          <ChevronDown/>
+        </Badge>
+      </DrawerTrigger>
+      <DrawerContent>
+        <div className="mx-auto w-full max-w-sm">
+          <DrawerHeader>
+            <DrawerTitle>유형</DrawerTitle>
+          </DrawerHeader>
+
+          <DrawerFooter>
+            <div className="flex flex-row justify-between gap-4">
+              <DrawerClose asChild>
+                <button
+                  className="flex-[1] bg-[#f0f0f0] p-4 rounded-md"
+                  onClick={()=>setSort("CREATED_AT_DESC")}
+                >
+                  최신순
+                </button>
+              </DrawerClose>
+              <DrawerClose asChild>
+                <button
+                  className="flex-[1] bg-[#f0f0f0] p-4 rounded-md"
+                  onClick={()=>setSort("CREATED_AT_ASC")}
+                >
+                  등록일순
+                </button>
+              </DrawerClose>
+            </div>
+
+            <DrawerClose asChild>
+              <button
+                className="flex-[1] bg-[#f0f0f0] p-4 rounded-md"
+                onClick={()=>setSort(undefined)}
+              >
+                취소
+              </button>
+            </DrawerClose>
+
+          </DrawerFooter>
+        </div>
+      </DrawerContent>
+    </Drawer>
+  )
+}
+
