@@ -28,3 +28,9 @@ export interface MessageModel {
   message: string;
   createdAt: string;
 }
+
+
+export interface NoticeModel {
+  title: string;
+  content: string;
+}

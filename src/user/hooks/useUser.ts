@@ -15,6 +15,7 @@ export function useUser(): UserState {
     // enabled: localStorage.getItem(ACCESS_TOKEN) !== null, // 토큰이 없으면 쿼리를 실행x
     queryFn: getMyInfo,
     staleTime: 1000 * 60 * 60, // 1시간동안 캐시 유지
+    gcTime: 1000 * 60 * 30, // 30분 후에 캐시 삭제
   });
 
 

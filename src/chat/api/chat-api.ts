@@ -1,6 +1,12 @@
 import {ChatSendRequest} from "@/chat/api/chat-request.ts";
 import {axiosClient} from "@/global/api/axios.ts";
-import {ArticleSimpleModel, ChatDetailResponse, ChatRoomModel, MessageModel} from "@/chat/api/chat-response.ts";
+import {
+  ArticleSimpleModel,
+  ChatDetailResponse,
+  ChatRoomModel,
+  MessageModel,
+  NoticeModel
+} from "@/chat/api/chat-response.ts";
 import {PagingResponse} from "@/global/api/response.ts";
 import {PagingParams} from "@/global/api/request.ts";
 import {UserModel} from "@/user/api/user-response.ts";
@@ -90,4 +96,23 @@ export async function getChatRoomDetail(roomId: number): Promise<ChatDetailRespo
       userType: 'FOREIGNER',
     }
   }
+}
+
+export async function getNotices(): Promise<NoticeModel[]> {
+  // const res = await axiosClient.get('/api/notice');
+  // return res.data;
+  return [
+    {
+      title: 'Notice 1',
+      content: 'Content 1',
+    },
+    {
+      title: 'Notice 2',
+      content: 'Content 2',
+    },
+    {
+      title: 'Notice 3',
+      content: 'Content 3',
+    },
+  ]
 }
