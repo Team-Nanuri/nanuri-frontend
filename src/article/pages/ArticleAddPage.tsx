@@ -140,17 +140,15 @@ function uploadFile(e: ChangeEvent<HTMLInputElement>): void {
   const createArticleClick = async () => {
     // 게시글 생성 요청
     const req :ArticleCreateRequest = {
-      category: selectedCategory, // ItemCategory 타입으로 캐스팅
+      category: selectedCategory as ItemCategory,
       shareType: selectedType === "대여" ? "RENTAL" : "DONATION",  
-      rentalStartDate: isRental ? rentalStartDate : "",  // 대여일인 경우에만 날짜
-      rentalEndDate: isRental ? rentalEndDate : "",      // 대여일인 경우에만 날짜 
+      rentalStartDate: isRental ? rentalStartDate : undefined,
+      rentalEndDate: isRental ? rentalEndDate : undefined,
       title: titleContent,
       content: textareaContent,
       images: postImg
 
     };
-
-    alert("게시글이 생성되었습니다." + JSON.stringify(req));
     const model = await createArticle(req);
     navigate(`/article/${model.articleId}`);
 
