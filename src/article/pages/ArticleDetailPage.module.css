@@ -12,14 +12,13 @@
 
 .header {
   display: flex;
-  gap: 320px;
   justify-content: space-between;
   padding: 10px;
   z-index: 10;
 }
 
 .backButton,
-.heartButton {
+.RightButton {
   background-color: transparent;
   border: none;
 }
@@ -114,4 +113,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.drawerContent{
+  display: flex;
+  justify-content: center;
+  max-width: 430px;
+  width: 100%;
 }

@@ -240,3 +240,11 @@
   border: none;
   background-color: #F1F1F1;
 }
+
+.drawerContent {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background: white;
+  border-radius: 10px 10px 0 0;
+}
