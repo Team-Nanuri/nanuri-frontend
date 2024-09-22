@@ -1,8 +1,8 @@
-import useArticlePaging from "@/article/hooks/useArticlePaging.ts";
 import {Fragment} from "react";
 import ArticleItem from "@/article/components/ArticleItem.tsx";
 import LoadingSpinner from "@/global/components/LoadingSpinner.tsx";
 import {useTranslation} from "react-i18next";
+import useLikeArticlePaging from "@/article/hooks/useLikeArticlePaging.ts";
 
 export default function ArticleLikePage() {
   const {
@@ -11,7 +11,7 @@ export default function ArticleLikePage() {
     ref,
     likeClick,
     dislikeClick,
-  } = useArticlePaging({});
+  } = useLikeArticlePaging();
 
   return (
     <div className="w-full h-full">

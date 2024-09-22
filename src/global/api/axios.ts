@@ -49,8 +49,8 @@ axiosClient.interceptors.response.use(
       if (resp.ok) {
         console.log('토큰 재발급 성공');
         const res = await resp.json();
-        localStorage.setItem(ACCESS_TOKEN, res.data.accessToken);
-        localStorage.setItem(REFRESH_TOKEN, res.data.refreshToken);
+        localStorage.setItem(ACCESS_TOKEN, res.accessToken);
+        localStorage.setItem(REFRESH_TOKEN, res.refreshToken);
         return axiosClient(originalRequest);
       }else{
         console.log('토큰 재발급 실패');

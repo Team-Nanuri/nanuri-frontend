@@ -7,6 +7,7 @@ import {
   ArticleStatusUpdateRequest,
   ArticleUpdateRequest
 } from "@/article/api/article-request.ts";
+import {PagingParams} from "@/global/api/request.ts";
 
 
 
@@ -18,6 +19,16 @@ export async function getArticlePaging(params: ArticlePagingParams): Promise<Pag
   });
   return res.data;
 }
+
+export async function getLikedArticlePaging(params: PagingParams): Promise<PagingResponse<ArticleModel>> {
+  const res = await axiosClient.get('/api/articles/likes', {
+    params: {
+      ...params
+    }
+  });
+  return res.data;
+}
+
 
 export async function getArticleDetail(articleId: number): Promise<ArticleDetailModel> {
   const res = await axiosClient.get(`/api/articles/${articleId}`);
