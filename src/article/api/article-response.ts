@@ -30,3 +30,8 @@ export interface ArticleDetailModel {
 }
 
 export type ArticleStatus = 'DONE' | 'ONGOING';
+
+export default interface SuggestResponse {
+  origin: string;
+  translated: string;
+}
