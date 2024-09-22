@@ -7,6 +7,7 @@ import close from "@/assets/close.svg";
 import del from "@/assets/delete.svg";
 import camera from "@/assets/camera.svg";
 import ArticleCategory from "../components/ArticleCategory";
+import axios from "axios";  // Axios 사용
 
 export default function ArticleAddPage() {
   const [selectedCategory, setSelectedCategory] =
