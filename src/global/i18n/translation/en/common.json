@@ -9,5 +9,7 @@
   "상태" : "Status",
   "완료" : "Completed",
   "진행중": "In Progress",
-  "취소": "Cancel"
+  "취소": "Cancel",
+  "검색 결과가 없습니다.": "No results found.",
+  "(으)로 검색": " Search for"
 }

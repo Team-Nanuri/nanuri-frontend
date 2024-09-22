@@ -57,6 +57,7 @@ export default function ArticleSearchPage() {
     setApiKeyword(searchKeyword);
   }
 
+  const {  t } = useTranslation();
 
   return (
     <div className="w-full h-full">
@@ -80,7 +81,7 @@ export default function ArticleSearchPage() {
             <div className="h-full w-full flex flex-col justify-center items-center">
                 <div className="flex-[1]"/>
                 <div className="mb-[6px]">
-                    검색 결과가 없습니다.
+                  {t("검색 결과가 없습니다.")}
                 </div>
                 <div className="flex flex-row ">
                     <button
@@ -93,7 +94,7 @@ export default function ArticleSearchPage() {
                       {recommandText}
                     </button>
                     <div className="">
-                         (으)로 검색
+                      {t("(으)로 검색")}
                     </div>
                 </div>
                 <div className="flex-[3]"/>
