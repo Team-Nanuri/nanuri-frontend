@@ -17,7 +17,12 @@ export default function ArticleItem({article, likeClick, dislikeClick}: ArticleI
       className="h-[130px] flex flex-row justify-center items-center border-b"
       to={`/article/${article.articleId}`}
     >
-      <img className="mx-[12px] w-[96px] h-[96px]" src={article.imageUrl} alt="#"/>
+      {!article.imageUrl && <div
+          className="mx-[12px] w-[96px] h-[96px] bg-gray-300"
+      />}
+      {article.imageUrl &&
+        <img className="mx-[12px] w-[96px] h-[96px]" src={article.imageUrl} alt="#"/>
+      }
 
       <div className="h-full flex-grow flex flex-col pr-[12px] py-[12px]">
         <div className="w-full mr-[12px] flex flex-row justify-between">
