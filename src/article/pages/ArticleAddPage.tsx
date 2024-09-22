@@ -102,7 +102,7 @@ function uploadFile(e: ChangeEvent<HTMLInputElement>): void {
     navigate(-1);
   };
   return (
-    <div className="w-full h-full p-[20px]">
+    <div className="w-full h-full p-[20px] overflow-y-auto">
       <header className={styles.header}>
         <button className={styles.backButton} onClick={goBack}>
           <img src={chevronright} alt="back" />
