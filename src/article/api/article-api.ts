@@ -93,11 +93,11 @@ export async function updateArticleStatus(articleId:number, req:ArticleStatusUpd
 }
 
 export async function likeArticle(articleId:number): Promise<void> {
-  await axiosClient.post(`/api/articles/${articleId}/like`);
+  await axiosClient.post(`/api/articles/${articleId}/likes`);
   return;
 }
 
 export async function unlikeArticle(articleId:number): Promise<void> {
-  await axiosClient.delete(`/api/articles/${articleId}/like`);
+  await axiosClient.delete(`/api/articles/${articleId}/likes`);
   return;
 }
