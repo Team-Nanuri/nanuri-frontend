@@ -73,7 +73,13 @@ function RoomItem({chatRoom}: { chatRoom: ChatRoomModel }) {
       border-b"
           to={`/chat/${chatRoom.roomId}`}
     >
-      <img className="w-[60px] h-[60px] rounded-[6px] ml-[15px]" src={chatRoom.article.imageUrl} alt="#"/>
+      {!chatRoom.article.imageUrl && (
+        <div className="w-[60px] h-[60px] rounded-[6px] ml-[15px] bg-gray-200"/>
+      )}
+      {chatRoom.article.imageUrl && (
+        <img className="w-[60px] h-[60px] rounded-[6px] ml-[15px]" src={chatRoom.article.imageUrl} alt="#"/>
+      )}
+
       <div className="pl-[12px] flex flex-col flex-grow justify-between h-full py-[16px] pr-[8px]">
         <div className="w-full flex flex-row items-center">
           <div className="font-semibold text-[16px]">
