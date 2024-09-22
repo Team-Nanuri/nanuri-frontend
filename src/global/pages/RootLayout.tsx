@@ -3,6 +3,7 @@ import {Suspense, useEffect} from "react";
 import {ErrorBoundary} from "react-error-boundary";
 import {useUser} from "@/user/hooks/useUser.ts";
 import LoadingSpinner from "@/global/components/LoadingSpinner.tsx";
+import {ACCESS_TOKEN} from "@/global/const/const.ts";
 
 export default function RootLayout() {
 
@@ -17,6 +18,9 @@ export default function RootLayout() {
       navigate("/");
     }
     if(error && isLoginPath) {
+      navigate("/login");
+    }
+    if(!localStorage.getItem(ACCESS_TOKEN)){
       navigate("/login");
     }
 

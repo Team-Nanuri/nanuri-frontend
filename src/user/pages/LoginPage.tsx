@@ -3,14 +3,16 @@ import {ROUTER_PATH} from "@/global/const/const.ts";
 import {Input} from "@/global/components/ui/input.tsx";
 import {useState} from "react";
 import {emailLogin} from "@/user/api/auth-api.ts";
+import {useUser} from "@/user/hooks/useUser.ts";
 
 export default function LoginPage() {
+  const {login} = useUser();
 
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   const handleLogin = () => {
-    emailLogin({username, password});
+    login({username, password});
   }
 
   return (
