@@ -4,6 +4,8 @@ import {Input} from "@/global/components/ui/input.tsx";
 import {useState} from "react";
 import {emailLogin} from "@/user/api/auth-api.ts";
 import {useUser} from "@/user/hooks/useUser.ts";
+import logo from "@/assets/logo.svg";
+import rabbit from "@/assets/rabbit.svg";
 
 export default function LoginPage() {
   const {login} = useUser();
@@ -17,6 +19,9 @@ export default function LoginPage() {
 
   return (
     <div className="w-full h-dvh flex flex-col p-[24px]">
+      <div className="flex-[1]"/>
+
+      <img className="w-full h-[60px]" src={logo}/>
       <div className="flex-[1]"/>
       <div className="font-normal text-[18px] mb-1">
         유저네임
@@ -40,7 +45,8 @@ export default function LoginPage() {
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             handleLogin();
-        }}}
+          }
+        }}
       />
       <div className="h-[45px]"/>
       <div className="flex flex-row justify-center">
@@ -51,8 +57,8 @@ export default function LoginPage() {
           회원가입
         </Link>
       </div>
-      <div className="flex-[1]"/>
-      <GreenButton onClick={handleLogin} />
+      <div className="flex-[3]"/>
+      <GreenButton onClick={handleLogin}/>
     </div>
   );
 }
