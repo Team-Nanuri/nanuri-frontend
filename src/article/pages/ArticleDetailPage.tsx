@@ -122,20 +122,20 @@ function ArticleDetailContent({
     <>
       <div className={styles.contentContainer}>
         <div className={styles.userContainer}>
-          <p className={styles.username}>{articleDetail?.writer.username}</p>
-          <p className={styles.userType}>{articleDetail?.writer.userType}</p>
+          <p className={styles.username}>{articleDetail.writer.username}</p>
+          <p className={styles.userType}>{articleDetail.writer.userType}</p>
         </div>
         <hr className={styles.line} />
         <div className={styles.infoContainer}>
           <div className={styles.infoFirstLine}>
-            <p className={styles.title}>{articleDetail?.title}</p>
-            <p className={styles.category}>{articleDetail?.category}</p>
+            <p className={styles.title}>{articleDetail.title}</p>
+            <p className={styles.category}>{articleDetail.category}</p>
           </div>
           <p className={styles.createdAt}>{formatDateStr}</p>
-          <p className={styles.shareType}>{articleDetail?.shareType}</p>
+          <p className={styles.shareType}>{articleDetail.shareType}</p>
         </div>
         <div className={styles.contentWrapper}>
-          <p className={styles.content}>{articleDetail?.content}</p>
+          <p className={styles.content}>{articleDetail.content}</p>
         </div>
         <footer className={styles.footerWrapper}>
           <button
