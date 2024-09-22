@@ -8,7 +8,7 @@ import {useTranslation} from "react-i18next";
 
 export default function MyPage() {
 
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const { user, error } = useUser();
 
   return (
@@ -32,15 +32,15 @@ export default function MyPage() {
 
       <hr className={styles.line}></hr>
       <div className={styles.admin}>
-        <AdminButton label="나눔 물품 관리"/>
-        <AdminButton label="회원 정보 관리"/>
+        <AdminButton label={t("나눔 물품 관리")}/>
+        <AdminButton label={t("회원 정보 관리")}/>
       </div>
 
       <hr className={styles.line}></hr>
       <div className={styles.setting}>
-        <SettingButton label="로그아웃"/>
-        <SettingButton label="탈퇴하기"/>
-        <SettingButton label="개인정보처리방침"/>
+        <SettingButton label={t("로그아웃")}/>
+        <SettingButton label={t("탈퇴하기")}/>
+        <SettingButton label={t("개인정보 처리방침")}/>
       </div>
 
       <div className="flex flex-row gap-[12px] px-[8px]">
