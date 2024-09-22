@@ -11,6 +11,7 @@ import LoadingSpinner from "@/global/components/LoadingSpinner";
 import { ArticleDetailModel } from "../api/article-response";
 import ArticleModify from "@/article/components/ArticleModify";
 import rec from "@/assets/rec.png";
+import {createChatRoom} from "@/chat/api/chat-api.ts";
 // ArticleModify 컴포넌트를 불러옵니다.
 
 export default function ArticleDetailPage() {
@@ -107,6 +108,15 @@ function ArticleDetailContent({
   const dateStr = articleDetail.createdAt;
   dayjs.locale("ko");
   const formatDateStr = dayjs(dateStr).format("YYYY/MM/DD HH:mm");
+  const navigate = useNavigate();
+
+  const createChatClicked = async () => {
+    // 채팅 생성 로직
+    const chatRoomId = await createChatRoom({
+      articleId: articleDetail.articleId,
+    })
+    await navigate(`/chat/${chatRoomId}`);
+  }
 
   return (
     <>
@@ -128,7 +138,12 @@ function ArticleDetailContent({
           <p className={styles.content}>{articleDetail?.content}</p>
         </div>
         <footer className={styles.footerWrapper}>
-          <button className={styles.footerButton}>문의</button>
+          <button
+            className={styles.footerButton}
+            onClick={createChatClicked}
+          >
+            문의
+          </button>
         </footer>
       </div>
     </>

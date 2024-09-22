@@ -12,7 +12,7 @@ export function sendChatMessage(req: ChatSendRequest): Promise<void> {
   return axiosClient.post('/api/chat', req);
 }
 
-export function createChatRoom(req: ChatRoomCreateRequest): Promise<void> {
+export function createChatRoom(req: ChatRoomCreateRequest): Promise<number> {
   return axiosClient.post('/api/chat/room', req);
 }
 
