@@ -1,6 +1,7 @@
 import {ArticleModel, shareTypeToKorean} from "@/article/api/article-response.ts";
 import {Heart} from "lucide-react";
 import { Link } from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 interface ArticleItemProps {
   article: ArticleModel;
@@ -9,6 +10,8 @@ interface ArticleItemProps {
 }
 
 export default function ArticleItem({article, likeClick, dislikeClick}: ArticleItemProps) {
+  const {  t } = useTranslation();
+
   return (
     <Link
       className="h-[130px] flex flex-row justify-center items-center border-b"
@@ -22,7 +25,7 @@ export default function ArticleItem({article, likeClick, dislikeClick}: ArticleI
             {article.title}
           </div>
           <div className="font-normal text-[12px]">
-            {shareTypeToKorean(article.shareType)}
+            {t(article.shareType)}
           </div>
         </div>
         <div className="flex-[1] font-normal text-[12px]">
