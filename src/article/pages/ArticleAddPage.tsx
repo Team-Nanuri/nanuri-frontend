@@ -18,6 +18,17 @@ export default function ArticleAddPage() {
   const [isCategoryOpen, setCategoryOpen] = useState<boolean>(false);
   const [selectedCategory, setSelectedCategory] = useState<string>('카테고리 선택');
 
+  // State to handle date input visibility
+  const [isRental, setIsRental] = useState(false);
+
+  // Function to handle the type button click
+  const handleRentalClick = () => {
+    setIsRental(true);
+  };
+
+  const handleSharingClick = () => {
+    setIsRental(false);
+  };
 
   const handleCategorySelect = (category: string) => {
     setSelectedCategory(category); // 선택한 카테고리를 저장
@@ -84,7 +95,13 @@ function uploadFile(e: ChangeEvent<HTMLInputElement>): void {
   // 타입 버튼 클릭 핸들러
   function handleTypeClick(type: "나눔" | "대여") {
     setSelectedType(type); // 선택한 타입 저장
-  }
+    if(type === "대여") {
+      setIsRental(true);
+    }
+    else if(type === "나눔") {
+      setIsRental(false);
+    }
+  };
 
   // 입력 값 변경 처리 함수
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -177,6 +194,14 @@ function uploadFile(e: ChangeEvent<HTMLInputElement>): void {
               onClick={() => handleTypeClick("대여")}
             />
           </div>
+             {/* Show date inputs if rental is selected */}
+      {isRental && (
+        <div className={styles.dateContainer}>
+          <input type="date" placeholder="YYYY/MM/DD" />
+          <span> - </span>
+          <input type="date" placeholder="YYYY/MM/DD" />
+        </div>
+      )}
         </div>
 
         <hr className={styles.line}></hr>
