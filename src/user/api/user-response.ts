@@ -6,4 +6,4 @@ export interface UserModel {
 
 
 
-export type UserType = 'FOREIGNER' | 'EXCHANGE_STUDENT';
+export type UserType = 'INTERNATIONAL' | 'EXCHANGE' | 'DUAL_DEGREE';

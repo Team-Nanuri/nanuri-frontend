@@ -4,5 +4,5 @@ export interface SignupRequest {
   username: string;
   password: string;
   userType: UserType;
-  enrollmentProofImage: any;
+  enrollmentProofImage: File;
 }
