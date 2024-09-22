@@ -1,6 +1,7 @@
 import profile from "@/assets/profile.svg";
 import {ApiError} from "@/global/api/response.ts";
 import {UserModel} from "@/user/api/user-response.ts";
+import {useTranslation} from "react-i18next";
 
 interface UserItemProps {
   user?: UserModel
@@ -8,6 +9,7 @@ interface UserItemProps {
 }
 
 export default function UserItem({user, error}: UserItemProps) {
+  const {  t } = useTranslation();
   return (
     <div className="h-[60px] items-center ml-[17px]">
       <div className="h-full flex">
@@ -16,7 +18,7 @@ export default function UserItem({user, error}: UserItemProps) {
         {user ? (
           <div className="flex flex-col gap-[4px] ml-[10px] items-center">
             <label>{user.username} </label>
-            <label>{user.userType} </label>
+            <label>{t(user.userType)} </label>
           </div>
         ) : (
           <p>Loading user info...</p>

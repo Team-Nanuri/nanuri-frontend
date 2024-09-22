@@ -22,7 +22,7 @@ export default function MyPage() {
           {user ? (
             <div className={styles.user}>
               <label>{user.username} </label>
-              <label>{user.userType} </label>
+              <label>{t(user.userType)} </label>
             </div>
           ) : (
             <p>Loading user info...</p>
