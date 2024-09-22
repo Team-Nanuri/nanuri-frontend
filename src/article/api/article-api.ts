@@ -9,28 +9,6 @@ import {
 } from "@/article/api/article-request.ts";
 
 
-function genArticle(page:number, size: number,keyword?:string): PagingResponse<ArticleModel> {
-  const articles : ArticleModel[]= [];
-  for(let i = page*size; i <page*size+ size; i++) {
-    const article: ArticleModel = {
-      articleId: i,
-      title: `Article ${i}`,
-      content: `Article content ${i} ${keyword}`,
-      imageUrl: `https://picsum.photos/200/300?random=${i}`,
-      createdAt: new Date().toISOString(),
-      shareType: 'DONATE',
-      liked: i%7 === 4,
-      status: i%3 === 1 ? 'DONE' : 'ONGOING',
-    }
-    articles.push(article);
-  }
-
-  return {
-    totalPages: 10,
-    contents: articles,
-  }
-}
-
 
 export async function getArticlePaging(params: ArticlePagingParams): Promise<PagingResponse<ArticleModel>> {
   const res = await axiosClient.get('/api/articles', {
@@ -39,36 +17,11 @@ export async function getArticlePaging(params: ArticlePagingParams): Promise<Pag
     }
   });
   return res.data;
-
-  // const data = genArticle(params.page, params.size,params.keyword);
-  // console.log('paing api 콜!',params, data);
-  // await new Promise(resolve => setTimeout(resolve, 1000));
-  // return data;
 }
 
 export async function getArticleDetail(articleId: number): Promise<ArticleDetailModel> {
-  // const res = await axiosClient.get(`/api/articles/${articleId}`);
-  // return res.data;
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  const article: ArticleDetailModel = {
-    articleId,
-    title: `Article ${articleId}`,
-    content: `Article content ${articleId}`,
-    imageUrls: [`https://picsum.photos/200/300?random=${articleId}`],
-    shareType: 'DONATE',
-    liked: articleId%7 === 4,
-    createdAt: new Date().toISOString(),
-    category: 'CATEGORY',
-    writer: {
-      userType: 'FOREIGNER',
-      id: articleId,
-      username: `User ${articleId}`,
-    },
-    status: articleId%3 === 1 ? 'DONE' : 'ONGOING',
-    rentalEndDate: new Date().toISOString(),
-    rentalStartDate: new Date().toISOString(),
-  }
-  return article;
+  const res = await axiosClient.get(`/api/articles/${articleId}`);
+  return res.data;
 }
 
 export async function createArticle(req: ArticleCreateRequest): Promise<void> {
@@ -93,11 +46,11 @@ export async function updateArticleStatus(articleId:number, req:ArticleStatusUpd
 }
 
 export async function likeArticle(articleId:number): Promise<void> {
-  await axiosClient.post(`/api/articles/${articleId}/like`);
+  await axiosClient.post(`/api/articles/${articleId}/likes`);
   return;
 }
 
 export async function unlikeArticle(articleId:number): Promise<void> {
-  await axiosClient.delete(`/api/articles/${articleId}/like`);
+  await axiosClient.delete(`/api/articles/${articleId}/likes`);
   return;
 }

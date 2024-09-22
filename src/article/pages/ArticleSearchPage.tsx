@@ -41,7 +41,6 @@ export default function ArticleSearchPage() {
 
 
   const onSearchClicked = () => {
-    alert(`검색어: ${searchKeyword}!`);
     setApiKeyword(searchKeyword);
   }
 

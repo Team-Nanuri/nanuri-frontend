@@ -1,4 +1,6 @@
 {
-    "FOREIGNER": "유학생",
-    "EXCHANGE_STUDENT": "교환학생"
+    "INTERNATIONAL": "유학생",
+    "EXCHANGE": "교환학생",
+    "DUAL_DEGREE": "복수학위생"
 }
+

@@ -99,20 +99,6 @@ export async function getChatRoomDetail(roomId: number): Promise<ChatDetailRespo
 }
 
 export async function getNotices(): Promise<NoticeModel[]> {
-  // const res = await axiosClient.get('/api/notice');
-  // return res.data;
-  return [
-    {
-      title: 'Notice 1',
-      content: 'Content 1',
-    },
-    {
-      title: 'Notice 2',
-      content: 'Content 2',
-    },
-    {
-      title: 'Notice 3',
-      content: 'Content 3',
-    },
-  ]
+  const res = await axiosClient.get('/api/notices');
+  return res.data;
 }

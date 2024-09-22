@@ -1,7 +1,77 @@
 import {Input} from "@/global/components/ui/input.tsx";
 import {Checkbox} from "@/global/components/ui/checkbox.tsx";
-import {Select} from "@/global/components/ui/select.tsx";
+import {useState} from "react";
+import {UserType} from "@/user/api/user-response.ts";
+import {SignupRequest} from "@/user/api/auth-request.ts";
+import {useTranslation} from "react-i18next";
+import {
+  Drawer, DrawerClose,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger
+} from "@/global/components/ui/drawer.tsx";
+import {useUser} from "@/user/hooks/useUser.ts";
+
+interface SignupReqDto {
+  username: string;
+  password: string;
+  passwordConfirm: string;
+  userType: UserType | undefined;
+  enrollmentProofImage: File | undefined;
+}
+
 export default function SignupPage() {
+  const {signup} = useUser();
+
+
+  const [signupRequest, setSignupRequest] = useState<SignupReqDto>({
+    username: "",
+    password: "",
+    passwordConfirm: "",
+    userType: undefined,
+    enrollmentProofImage: undefined
+  });
+
+
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0) {
+      setSignupRequest(prev => {
+        return {
+          ...prev,
+          enrollmentProofImage: event.target.files[0]
+        }
+      });
+    }
+  };
+
+  const handleSignup = async () => {
+    if(signupRequest.password !== signupRequest.passwordConfirm){
+      alert("비밀번호가 일치하지 않습니다.");
+      return;
+    }
+    if(!signupRequest.userType || !signupRequest.enrollmentProofImage || !signupRequest.username || !signupRequest.password){
+      alert("모든 항목을 입력해주세요.");
+      return;
+    }
+
+    const req:SignupRequest = {
+      username: signupRequest.username,
+      password: signupRequest.password,
+      userType: signupRequest.userType,
+      enrollmentProofImage: signupRequest.enrollmentProofImage
+    }
+    try{
+      await signup(req);
+    }catch (e){
+      console.error(e);
+      alert("회원가입에 실패했습니다.");
+    }
+  }
+
+
   return (
     <div className="w-full h-full flex flex-col">
 
@@ -13,24 +83,64 @@ export default function SignupPage() {
         <div className="font-normal text-[18px] mb-1">
           유저네임
         </div>
-        <Input className="h-[60px] text-[18px]" placeholder={"유저네임 입력"}/>
+        <Input
+          className="h-[60px] text-[18px]"
+          placeholder={"유저네임 입력"}
+          value={signupRequest.username}
+          onChange={(e) => setSignupRequest(prev => {
+            return {
+              ...prev,
+              username: e.target.value
+            }
+          })}
+        />
         <div className="h-[20px]"/>
         <div className="font-normal text-[18px] mb-1">
           비밀번호
         </div>
-        <Input className="h-[60px] text-[18px]" placeholder={"비민번호 입력"}/>
+        <Input
+          className="h-[60px] text-[18px]"
+          placeholder={"비민번호 입력"}
+          type={"password"}
+          value={signupRequest.password}
+          onChange={(e) => setSignupRequest(prev=>{
+            return {
+              ...prev,
+              password: e.target.value
+            }
+          })}
+        />
 
         <div className="h-[20px]"/>
         <div className="font-normal text-[18px] mb-1">
           비밀번호 확인
         </div>
-        <Input className="h-[60px] text-[18px]" placeholder={"비민번호 입력"}/>
+        <Input
+          className="h-[60px] text-[18px]"
+          placeholder={"비민번호 입력"}
+          type={"password"}
+          value={signupRequest.passwordConfirm}
+          onChange={(e) => setSignupRequest(prev=>{
+            return {
+              ...prev,
+              passwordConfirm: e.target.value
+            }
+            })}
+        />
 
         <div className="h-[20px]"/>
         <div className="font-normal text-[18px] mb-1">
           학적유형
         </div>
-        <Input className="h-[60px] text-[18px]" placeholder={"선택"}/>
+        <DrawerUserType
+          userType={signupRequest.userType}
+          setUserType={(userType)=> setSignupRequest(prev=>{
+            return {
+              ...prev,
+              userType
+            }
+          })}
+        />
 
         <div className="h-[20px]"/>
         <div className="font-normal text-[18px] mb-1">
@@ -41,7 +151,7 @@ export default function SignupPage() {
           5MB 이하의 jpg, png 파일만 업로드할 수 있습니다.
         </div>
         <div className="grid w-full max-w-sm items-center gap-1.5 mt-2">
-          <Input id="picture" type="file"/>
+          <Input id="picture" type="file" onChange={handleFileChange}/>
         </div>
 
         <div className="h-[45px]"/>
@@ -54,7 +164,7 @@ export default function SignupPage() {
         </div>
 
         <div className="h-[45px]"/>
-        <GreenButton/>
+        <GreenButton onClick={handleSignup}/>
 
 
       </div>
@@ -64,10 +174,88 @@ export default function SignupPage() {
   );
 }
 
-export function GreenButton() {
+export function GreenButton({onClick}: {onClick: () => void}) {
   return (
-    <button className="h-[60px] bg-primaryGreen text-white rounded-[8px] w-full">
+    <button
+      className="h-[60px] bg-primaryGreen text-white rounded-[8px] w-full"
+      onClick={onClick}
+    >
       회원가입
     </button>
   );
 }
+
+
+
+export function DrawerUserType(
+  {userType, setUserType}: {
+    userType: UserType | undefined,
+    setUserType: (userType?: UserType) => void
+  }
+){
+  const {  t } = useTranslation();
+
+  let label = '학적유형';
+  if(userType){
+    label = userType;
+  }
+
+
+  return (
+    <Drawer>
+      <DrawerTrigger asChild>
+        <div className="h-[60px] w-full rounded-[6px] border-[1px] items-center justify-start flex pl-[10px]">
+          <div className="text-[18px] text-[#666] ">
+            {t(label)}
+          </div>
+        </div>
+      </DrawerTrigger>
+      <DrawerContent>
+        <div className="mx-auto w-full max-w-sm">
+          <DrawerHeader>
+          <DrawerTitle>{t("정렬")}</DrawerTitle>
+          </DrawerHeader>
+
+          <DrawerFooter>
+            <div className="flex flex-row justify-between gap-4">
+              <DrawerClose asChild>
+                <button
+                  className="flex-[1] bg-[#f0f0f0] p-4 rounded-md"
+                  onClick={()=>setUserType("EXCHANGE")}>
+                  {t("EXCHANGE")}
+                </button>
+              </DrawerClose>
+              <DrawerClose asChild>
+                <button
+                  className="flex-[1] bg-[#f0f0f0] p-4 rounded-md"
+                  onClick={()=>setUserType("INTERNATIONAL")}
+                >
+                  {t("INTERNATIONAL")}
+                </button>
+              </DrawerClose>
+              <DrawerClose asChild>
+                <button
+                  className="flex-[1] bg-[#f0f0f0] p-4 rounded-md"
+                  onClick={()=>setUserType("DUAL_DEGREE")}
+                >
+                  {t("DUAL_DEGREE")}
+                </button>
+              </DrawerClose>
+            </div>
+
+            <DrawerClose asChild>
+              <button
+                className="flex-[1] bg-[#f0f0f0] p-4 rounded-md"
+                onClick={()=>setUserType(undefined)}
+              >
+                {t("취소")}
+              </button>
+            </DrawerClose>
+
+          </DrawerFooter>
+        </div>
+      </DrawerContent>
+    </Drawer>
+  )
+}
+
