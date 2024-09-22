@@ -18,19 +18,19 @@ export type ArticleSort = "CREATED_AT_ASC" | "CREATED_AT_DESC";
 export interface ArticleCreateRequest {
   category: ItemCategory;
   shareType: string;
-  rentalStartDate: string;
-  rentalEndDate: string;
+  rentalStartDate?: string;
+  rentalEndDate?: string;
   title: string;
   content: string;
-  images: string[];
+  images: File[];
 }
 
 
 export interface ArticleUpdateRequest {
   category: ItemCategory;
   shareType: string;
-  rentalStartDate: string;
-  rentalEndDate: string;
+  rentalStartDate?: string;
+  rentalEndDate?: string;
   title: string;
   content: string;
   images: string[];
