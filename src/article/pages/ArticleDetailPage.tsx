@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import { useNavigate, useParams } from "react-router-dom";
 import { useUser } from "@/user/hooks/useUser";
 import { useQuery } from "@tanstack/react-query";
@@ -12,17 +12,13 @@ import { ArticleDetailModel } from "../api/article-response";
 import ArticleModify from "@/article/components/ArticleModify";
 import rec from "@/assets/rec.png";
 import {createChatRoom} from "@/chat/api/chat-api.ts";
-// ArticleModify 컴포넌트를 불러옵니다.
 
 export default function ArticleDetailPage() {
   const [isModifyOpen, setModifyOpen] = useState<boolean>(false);
 
-  const openModify = (): void => {
-    setModifyOpen(true);
-  };
-  const closeModify = (): void => {
-    setModifyOpen(false);
-  };
+
+  const openModify = (): void => {setModifyOpen(true);};
+  const closeModify = (): void => {setModifyOpen(false);};
 
   const { articleId } = useParams<{ articleId: string }>();
   const { data: articleDetail } = useQuery({
@@ -38,9 +34,9 @@ export default function ArticleDetailPage() {
 
   return (
     <div className="w-full h-full overflow-y-auto">
-      <ArticleDetailHeader openModify={openModify} />
+      <ArticleDetailHeader openModify={openModify}  />
       {/* imageUrls 배열을 map으로 순회하여 이미지를 렌더링 */}
-
+           
       {/* 이미지 렌더링 */}
       <div className={styles.picturesContainer}>
         {articleDetail.imageUrls && articleDetail.imageUrls.length > 0 ? (
@@ -57,13 +53,15 @@ export default function ArticleDetailPage() {
         )}
       </div>
       <ArticleDetailContent articleDetail={articleDetail} />
-      {/* ArticleModify 모달 */}
-      {isModifyOpen && <ArticleModify closeModify={closeModify} />}
+  {/* ArticleModify 모달 */}
+  {isModifyOpen && (
+            <ArticleModify closeModify={closeModify} />
+      )}
     </div>
   );
 }
 
-function ArticleDetailHeader({ openModify }: { openModify: () => void }) {
+function ArticleDetailHeader({openModify}: {openModify: () => void}) {
   const navigate = useNavigate();
   const { user, error } = useUser();
   const { articleId } = useParams<{ articleId: string }>();
@@ -77,6 +75,8 @@ function ArticleDetailHeader({ openModify }: { openModify: () => void }) {
   if (!articleDetail) {
     return <LoadingSpinner />;
   }
+    
+  
 
   const goBack = () => {
     navigate(-1);
@@ -87,15 +87,16 @@ function ArticleDetailHeader({ openModify }: { openModify: () => void }) {
       <button className={styles.backButton} onClick={goBack}>
         <ChevronLeft />
       </button>
-      {user?.id === articleDetail?.writer.id ? (
+      {(user?.id === articleDetail?.writer.id ) ? (
         <button className={styles.RightButton} onClick={openModify}>
           <EllipsisVertical />
         </button>
       ) : (
         <button className={styles.RightButton}>
-          <Heart />
-        </button>
+        <Heart />
+      </button>
       )}
+    
     </header>
   );
 }

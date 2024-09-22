@@ -35,9 +35,31 @@ export async function getArticleDetail(articleId: number): Promise<ArticleDetail
   return res.data;
 }
 
-export async function createArticle(req: ArticleCreateRequest): Promise<void> {
-  await axiosClient.post('/api/articles', req);
-  return;
+export async function createArticle(req: ArticleCreateRequest): Promise<ArticleDetailModel> {
+  
+  // category: ItemCategory;
+  // shareType: string;
+  // rentalStartDate: string;
+  // rentalEndDate: string;
+  // title: string;
+  // content: string;
+  // images: string[];
+  const formData = new FormData();
+  formData.append('title', req.title);
+  formData.append('content', req.content);
+  formData.append('category', req.category);
+  req.images.forEach((image) => {
+    formData.append('images', image);
+  });
+  formData.append('shareType', req.shareType);
+  if(req.rentalStartDate) formData.append('rentalStartDate', req.rentalStartDate);
+  if(req.rentalEndDate) formData.append('rentalEndDate', req.rentalEndDate);
+  const res = await axiosClient.post('/api/articles', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  });
+  return res.data;
 }
 
 export async function updateArticle(articleId: number, req: ArticleUpdateRequest): Promise<void> {
