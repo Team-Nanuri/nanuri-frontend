@@ -3,3 +3,6 @@ export interface ChatSendRequest {
   message: string;
 }
 
+export interface ChatRoomCreateRequest{
+  articleId: number;
+}

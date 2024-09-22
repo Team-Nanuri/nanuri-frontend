@@ -1,4 +1,4 @@
-import {ChatSendRequest} from "@/chat/api/chat-request.ts";
+import {ChatRoomCreateRequest, ChatSendRequest} from "@/chat/api/chat-request.ts";
 import {axiosClient} from "@/global/api/axios.ts";
 import {
   ChatDetailResponse,
@@ -11,6 +11,11 @@ import {PagingParams} from "@/global/api/request.ts";
 export function sendChatMessage(req: ChatSendRequest): Promise<void> {
   return axiosClient.post('/api/chat', req);
 }
+
+export function createChatRoom(req: ChatRoomCreateRequest): Promise<void> {
+  return axiosClient.post('/api/chat/room', req);
+}
+
 
 export async function getChatRoomPaging(params: PagingParams): Promise<PagingResponse<ChatRoomModel>> {
   const res = await axiosClient.get('/api/chat', {
