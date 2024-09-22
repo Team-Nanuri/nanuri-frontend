@@ -1,15 +1,12 @@
 import {ChatSendRequest} from "@/chat/api/chat-request.ts";
 import {axiosClient} from "@/global/api/axios.ts";
 import {
-  ArticleSimpleModel,
   ChatDetailResponse,
   ChatRoomModel,
-  MessageModel,
   NoticeModel
 } from "@/chat/api/chat-response.ts";
 import {PagingResponse} from "@/global/api/response.ts";
 import {PagingParams} from "@/global/api/request.ts";
-import {UserModel} from "@/user/api/user-response.ts";
 
 export function sendChatMessage(req: ChatSendRequest): Promise<void> {
   return axiosClient.post('/api/chat', req);
