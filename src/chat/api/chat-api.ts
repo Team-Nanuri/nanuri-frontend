@@ -12,8 +12,9 @@ export function sendChatMessage(req: ChatSendRequest): Promise<void> {
   return axiosClient.post('/api/chat', req);
 }
 
-export function createChatRoom(req: ChatRoomCreateRequest): Promise<number> {
-  return axiosClient.post('/api/chat/room', req);
+export async function createChatRoom(req: ChatRoomCreateRequest): Promise<number> {
+  const res = await axiosClient.post('/api/chat', req);
+  return res.data
 }
 
 

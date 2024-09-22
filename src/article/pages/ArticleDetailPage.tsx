@@ -112,10 +112,10 @@ function ArticleDetailContent({
 
   const createChatClicked = async () => {
     // 채팅 생성 로직
-    const chatRoomId = await createChatRoom({
+    const roomId = await createChatRoom({
       articleId: articleDetail.articleId,
     })
-    await navigate(`/chat/${chatRoomId}`);
+    await navigate(`/chat/${roomId}`);
   }
 
   return (
