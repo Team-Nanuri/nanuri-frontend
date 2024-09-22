@@ -225,3 +225,18 @@
   cursor: pointer;
   margin: 48px 0px 30px 0px;
 }
+
+/* Add this CSS for the date container */
+.dateContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dateContainer input {
+  width: 130px;
+  padding: 5px;
+  font-size: 11px;
+  border: none;
+  background-color: #F1F1F1;
+}
