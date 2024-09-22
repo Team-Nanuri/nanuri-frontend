@@ -11,16 +11,15 @@ export default function RootLayout() {
   const location = useLocation();
   const navigate = useNavigate();
   const isAuthPath = location.pathname === "/login" || location.pathname === "/signup";
-  const isLoginPath = !isAuthPath;
 
   useEffect(() => {
     if(user && isAuthPath) {
       navigate("/");
     }
-    if(error && isLoginPath) {
+    if(error && !isAuthPath) {
       navigate("/login");
     }
-    if(!localStorage.getItem(ACCESS_TOKEN)){
+    if(!localStorage.getItem(ACCESS_TOKEN) && !isAuthPath){
       navigate("/login");
     }
 
