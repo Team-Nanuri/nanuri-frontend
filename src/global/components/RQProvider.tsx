@@ -24,7 +24,6 @@ function RQProvider({children} : Props) {
   return (
     <QueryClientProvider client={client}>
       {children}
-      <ReactQueryDevtools initialIsOpen={import.meta.env.MODE === 'dev'}/>
     </QueryClientProvider>
   );
 }
