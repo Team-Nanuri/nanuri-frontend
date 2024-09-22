@@ -12,15 +12,14 @@ import {PagingParams} from "@/global/api/request.ts";
 import {UserModel} from "@/user/api/user-response.ts";
 
 export function sendChatMessage(req: ChatSendRequest): Promise<void> {
-  // return axiosClient.post('/api/chat', req);
-  return;
+  return axiosClient.post('/api/chat', req);
 }
 
 function genChatRoom(page: number, size: number): PagingResponse<ChatRoomModel> {
   const chatRooms: ChatRoomModel[] = [];
   for (let i = page * size; i < page * size + size; i++) {
     const otherUser: UserModel = {
-      userType: 'FOREIGNER',
+      userType: 'EXCHANGE',
       id: i,
       username: `User ${i}`,
     }
@@ -86,14 +85,14 @@ export async function getChatRoomDetail(roomId: number): Promise<ChatDetailRespo
       writer: {
         username: 'User 1',
         id: 1,
-        userType: 'FOREIGNER',
+        userType: 'INTERNATIONAL',
       },
     },
     messages,
     otherUser: {
       id: 3,
       username: 'User 3',
-      userType: 'FOREIGNER',
+      userType: 'EXCHANGE',
     }
   }
 }

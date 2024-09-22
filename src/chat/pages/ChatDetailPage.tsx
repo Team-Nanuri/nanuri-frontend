@@ -30,9 +30,8 @@ export default function ChatDetailPage() {
       return;
     }
     const req: ChatSendRequest = {
+      roomId: Number(roomId),
       message: toSendMessage,
-      articleId: data.article.articleId,
-      receiverId: data.otherUser.id
     }
     setToSendMessage("");
     sendMessage(req);
