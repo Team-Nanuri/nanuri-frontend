@@ -89,7 +89,7 @@ function ArticleDetailContent({
         <div className={styles.contentWrapper}>
           <p className={styles.content}>{articleDetail?.content}</p>
         </div>
-        <footer>
+        <footer className={styles.footerWrapper}>
           <button className={styles.footerButton}>문의</button>
         </footer>
       </div>

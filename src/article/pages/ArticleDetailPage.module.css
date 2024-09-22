@@ -106,6 +106,12 @@
     font-weight:bolder;
     font-size: 16px;
     cursor: pointer;
-    margin: 0px 0px 30px 0px;
+    margin: 0px 20px 30px 20px;
     letter-spacing: 4px;
+}
+
+.footerWrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
