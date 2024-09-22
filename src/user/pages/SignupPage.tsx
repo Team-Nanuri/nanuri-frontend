@@ -53,11 +53,16 @@ export default function SignupPage() {
       alert("비밀번호가 일치하지 않습니다.");
       return;
     }
+    if(!signupRequest.userType || !signupRequest.enrollmentProofImage || !signupRequest.username || !signupRequest.password){
+      alert("모든 항목을 입력해주세요.");
+      return;
+    }
+
     const req:SignupRequest = {
       username: signupRequest.username,
       password: signupRequest.password,
-      userType: signupRequest.userType!,
-      enrollmentProofImage: signupRequest.enrollmentProofImage!
+      userType: signupRequest.userType,
+      enrollmentProofImage: signupRequest.enrollmentProofImage
     }
     signup(req);
   }
