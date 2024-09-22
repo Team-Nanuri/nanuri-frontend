@@ -168,10 +168,10 @@ export default function SignupPage() {
 export function GreenButton({onClick}: {onClick: () => void}) {
   return (
     <button
-      className="h-[60px] bg-primaryGreen text-white rounded-[8px]"
+      className="h-[60px] bg-primaryGreen text-white rounded-[8px] w-full"
       onClick={onClick}
     >
-      로그인
+      회원가입
     </button>
   );
 }
