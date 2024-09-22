@@ -10,6 +10,7 @@ import "dayjs/locale/ko";
 import LoadingSpinner from "@/global/components/LoadingSpinner";
 import { ArticleDetailModel } from "../api/article-response";
 import ArticleModify from "@/article/components/ArticleModify";
+import rec from "@/assets/rec.png";
  // ArticleModify 컴포넌트를 불러옵니다.
 
 export default function ArticleDetailPage() {
@@ -36,15 +37,20 @@ export default function ArticleDetailPage() {
       <ArticleDetailHeader openModify={openModify}  />
       {/* imageUrls 배열을 map으로 순회하여 이미지를 렌더링 */}
            
+      {/* 이미지 렌더링 */}
       <div className={styles.picturesContainer}>
-        {articleDetail?.imageUrls?.map((imageUrl: string, index: number) => (
-          <img
-            key={index}
-            className={styles.pictures}
-            src={imageUrl}
-            alt={`image-${index}`}
-          />
-        ))}
+        {articleDetail.imageUrls && articleDetail.imageUrls.length > 0 ? (
+          articleDetail.imageUrls.map((imageUrl: string, index: number) => (
+            <img
+              key={index}
+              className={styles.pictures}
+              src={imageUrl}
+              alt={`image-${index}`}
+            />
+          ))
+        ) : (
+          <img className={styles.pictures} src={rec} alt="default image" />
+        )}
       </div>
       <ArticleDetailContent articleDetail={articleDetail} />
   {/* ArticleModify 모달 */}
