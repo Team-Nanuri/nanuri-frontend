@@ -2,7 +2,7 @@ import {Link, useParams} from "react-router-dom";
 import {ArticleSimpleModel} from "@/chat/api/chat-response.ts";
 import {ROUTER_PATH} from "@/global/const/const.ts";
 import {ChevronLeft} from "lucide-react";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import ChatInputBox from "@/chat/components/ChatInputBox.tsx";
 import {ChatList} from "@/chat/components/ChatList.tsx";
 import useMessage from "@/chat/hooks/useMessage.ts";
@@ -23,6 +23,7 @@ export default function ChatDetailPage() {
   if(!data) {
     return <LoadingSpinner/>;
   }
+
 
 
   const onSendClicked = () => {
