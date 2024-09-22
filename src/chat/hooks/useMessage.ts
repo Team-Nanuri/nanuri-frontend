@@ -26,7 +26,9 @@ export default function useMessage({roomId}: UseMessageProps): UseMessageRespons
     queryFn: async () => {
       return await getChatRoomDetail(roomId);
     },
-    gcTime: 1000 * 60 * 5, // 5분
+    staleTime: 1000,
+    refetchInterval: 1000, //1초마다 새로고침
+    gcTime: 0,
   });
   const {data:user} = useQuery<UserModel, ApiError,UserModel>({
     queryKey: ['userInfo'],

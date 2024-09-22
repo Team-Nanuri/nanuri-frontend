@@ -1,19 +1,14 @@
 import {QueryKey, useInfiniteQuery, useMutation, useQueryClient} from "@tanstack/react-query";
 import {ApiError, PagingResponse} from "@/global/api/response.ts";
-import {ArticleModel, ArticleStatus, ShareType} from "@/article/api/article-response.ts";
+import {ArticleModel} from "@/article/api/article-response.ts";
 import type {InfiniteData} from "@tanstack/query-core";
-import {getArticlePaging, likeArticle, unlikeArticle} from "@/article/api/article-api.ts";
+import {getArticlePaging, getLikedArticlePaging, likeArticle, unlikeArticle} from "@/article/api/article-api.ts";
 import {useInView} from "react-intersection-observer";
 import {useEffect} from "react";
-import {ArticlePagingParams, ArticleSort} from "@/article/api/article-request.ts";
+import {ArticlePagingParams} from "@/article/api/article-request.ts";
+import {PagingParams} from "@/global/api/request.ts";
 
-interface UseUserArticlePagingProps {
-  userId?: number;
-  shareType?: ShareType;
-  keyword?: string;
-  status?: ArticleStatus;
-  sort?: ArticleSort;
-}
+
 
 interface UseUserArticlePagingReturn {
   data: InfiniteData<PagingResponse<ArticleModel>> | undefined;
@@ -22,19 +17,11 @@ interface UseUserArticlePagingReturn {
   isFetchingNextPage: boolean;
   likeClick: (articleId: number) => void;
   dislikeClick: (articleId: number) => void;
-
 }
 
-export default function useArticlePaging(
-  {
-    userId,
-    shareType,
-    keyword,
-    status,
-    sort= "CREATED_AT_DESC",
-  }: UseUserArticlePagingProps) : UseUserArticlePagingReturn {
+export default function useLikeArticlePaging() : UseUserArticlePagingReturn {
   const queryKey: QueryKey = [
-    'articles', userId, shareType, keyword, status, sort
+    'articles', 'likes'
   ];
 
 
@@ -49,20 +36,15 @@ export default function useArticlePaging(
     ApiError,
     InfiniteData<PagingResponse<ArticleModel>>,
     QueryKey,
-    ArticlePagingParams
+    PagingParams
   >({
     queryKey: queryKey,
     initialPageParam: {
       page: 0,
       size: 10,
-      writerId: userId,
-      shareType,
-      keyword,
-      status,
-      sort
     },
     queryFn: async context => {
-      return await getArticlePaging(context.pageParam);
+      return await getLikedArticlePaging(context.pageParam);
     },
     getNextPageParam: (lastPage, allPages, lastPageParam) => {
       if (lastPage.totalPages <= lastPageParam.page + 1) return null;

@@ -1,6 +1,8 @@
 export interface ChatSendRequest {
-  receiverId: number;
-  articleId: number;
+  roomId: number;
   message: string;
 }
 
+export interface ChatRoomCreateRequest{
+  articleId: number;
+}
