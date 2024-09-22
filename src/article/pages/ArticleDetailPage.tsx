@@ -23,7 +23,7 @@ export default function ArticleDetailPage() {
   }
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full overflow-y-auto">
       <ArticleDetailHeader />
       {/* imageUrls 배열을 map으로 순회하여 이미지를 렌더링 */}
       <div className={styles.picturesContainer}>
@@ -89,7 +89,7 @@ function ArticleDetailContent({
         <div className={styles.contentWrapper}>
           <p className={styles.content}>{articleDetail?.content}</p>
         </div>
-        <footer>
+        <footer className={styles.footerWrapper}>
           <button className={styles.footerButton}>문의</button>
         </footer>
       </div>
