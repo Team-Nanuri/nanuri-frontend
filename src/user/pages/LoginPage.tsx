@@ -10,7 +10,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState<string>("");
 
   const handleLogin = () => {
-    emailLogin(username, password);
+    emailLogin({username, password});
   }
 
   return (

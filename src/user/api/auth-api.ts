@@ -16,10 +16,15 @@ export function signup(signupRequest: SignupRequest): Promise<void> {
   });
 }
 
-export async function emailLogin(username: string, password: string): Promise<LoginResponse> {
+export interface EmailLoginRequest {
+  username: string;
+  password: string;
+}
+
+export async function emailLogin(req: EmailLoginRequest): Promise<LoginResponse> {
   const formData = new FormData();
-  formData.append('username', username);
-  formData.append('password', password);
+  formData.append('username', req.username);
+  formData.append('password', req.password);
 
   const res = await axiosClient.post('/api/login', formData, {
     headers: {

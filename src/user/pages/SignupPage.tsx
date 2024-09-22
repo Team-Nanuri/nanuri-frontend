@@ -1,11 +1,8 @@
 import {Input} from "@/global/components/ui/input.tsx";
 import {Checkbox} from "@/global/components/ui/checkbox.tsx";
-import {Select} from "@/global/components/ui/select.tsx";
 import {useState} from "react";
 import {UserType} from "@/user/api/user-response.ts";
-import {signup} from "@/user/api/auth-api.ts";
 import {SignupRequest} from "@/user/api/auth-request.ts";
-import {ArticleSort} from "@/article/api/article-request.ts";
 import {useTranslation} from "react-i18next";
 import {
   Drawer, DrawerClose,
@@ -15,6 +12,7 @@ import {
   DrawerTitle,
   DrawerTrigger
 } from "@/global/components/ui/drawer.tsx";
+import {useUser} from "@/user/hooks/useUser.ts";
 
 interface SignupReqDto {
   username: string;
@@ -25,6 +23,7 @@ interface SignupReqDto {
 }
 
 export default function SignupPage() {
+  const {signup} = useUser();
 
 
   const [signupRequest, setSignupRequest] = useState<SignupReqDto>({
@@ -48,7 +47,7 @@ export default function SignupPage() {
     }
   };
 
-  const handleSignup = () => {
+  const handleSignup = async () => {
     if(signupRequest.password !== signupRequest.passwordConfirm){
       alert("비밀번호가 일치하지 않습니다.");
       return;
@@ -64,7 +63,12 @@ export default function SignupPage() {
       userType: signupRequest.userType,
       enrollmentProofImage: signupRequest.enrollmentProofImage
     }
-    signup(req);
+    try{
+      await signup(req);
+    }catch (e){
+      console.error(e);
+      alert("회원가입에 실패했습니다.");
+    }
   }
 
 
