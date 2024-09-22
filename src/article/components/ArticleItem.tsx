@@ -1,4 +1,4 @@
-import {ArticleModel, shareTypeToKorean} from "@/article/api/article-response.ts";
+import {ArticleModel} from "@/article/api/article-response.ts";
 import {Heart} from "lucide-react";
 import { Link } from "react-router-dom";
 import {useTranslation} from "react-i18next";
