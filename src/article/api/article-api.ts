@@ -33,17 +33,17 @@ function genArticle(page:number, size: number,keyword?:string): PagingResponse<A
 
 
 export async function getArticlePaging(params: ArticlePagingParams): Promise<PagingResponse<ArticleModel>> {
-  // const res = await axiosClient.get('/api/articles', {
-  //   params: {
-  //     ...params
-  //   }
-  // });
-  // return res.data;
+  const res = await axiosClient.get('/api/articles', {
+    params: {
+      ...params
+    }
+  });
+  return res.data;
 
-  const data = genArticle(params.page, params.size,params.keyword);
-  console.log('paing api 콜!',params, data);
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  return data;
+  // const data = genArticle(params.page, params.size,params.keyword);
+  // console.log('paing api 콜!',params, data);
+  // await new Promise(resolve => setTimeout(resolve, 1000));
+  // return data;
 }
 
 export async function getArticleDetail(articleId: number): Promise<ArticleDetailModel> {

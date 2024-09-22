@@ -6,4 +6,4 @@ export interface UserModel {
 
 
 
-type UserType = 'FOREIGNER' | 'EXCHANGE_STUDENT';
+export type UserType = 'FOREIGNER' | 'EXCHANGE_STUDENT';
