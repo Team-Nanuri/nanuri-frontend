@@ -1,5 +1,5 @@
 import {PagingResponse} from "@/global/api/response.ts";
-import {ArticleModel, ArticleDetailModel} from "@/article/api/article-response.ts";
+import SuggestResponse, {ArticleModel, ArticleDetailModel} from "@/article/api/article-response.ts";
 import {axiosClient} from "@/global/api/axios.ts";
 import {
   ArticleCreateRequest,
@@ -53,4 +53,9 @@ export async function likeArticle(articleId:number): Promise<void> {
 export async function unlikeArticle(articleId:number): Promise<void> {
   await axiosClient.delete(`/api/articles/${articleId}/likes`);
   return;
+}
+
+export async function suggestKeyword(text: string): Promise<SuggestResponse> {
+  const res = await axiosClient.get(`/api/translation?text=${text}`);
+  return res.data;
 }

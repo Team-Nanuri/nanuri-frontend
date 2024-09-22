@@ -1,5 +1,5 @@
 import {ChevronDown} from "lucide-react";
-import {Fragment, useState} from "react";
+import {Fragment, useEffect, useState} from "react";
 import {Badge} from "@/global/components/ui/badge.tsx";
 import useArticlePaging from "@/article/hooks/useArticlePaging.ts";
 import ArticleItem from "@/article/components/ArticleItem.tsx";
@@ -17,6 +17,7 @@ import ArticleSearchHeader from "@/article/components/ArticleSearchHeader.tsx";
 import LoadingSpinner from "@/global/components/LoadingSpinner.tsx";
 import {ArticleSort} from "@/article/api/article-request.ts";
 import {useTranslation} from "react-i18next";
+import {suggestKeyword} from "@/article/api/article-api.ts";
 
 
 export default function ArticleSearchPage() {
@@ -38,6 +39,18 @@ export default function ArticleSearchPage() {
     status,
     sort,
   });
+
+  const [recommandText, setRecommandText] = useState<string>("");
+
+  useEffect(() => {
+    if(data?.pages.length >0 && data?.pages[0].contents.length === 0){
+      suggestKeyword(searchKeyword).then((res) => {
+        setRecommandText(res.translated);
+      });
+    }
+  }, [data]);
+
+
 
 
   const onSearchClicked = () => {
@@ -63,8 +76,31 @@ export default function ArticleSearchPage() {
       }
       <section className="h-[calc(100%-100px)] overflow-auto">
         {apiKeyword && !data && <LoadingSpinner/>}
+        {recommandText &&
+            <div className="h-full w-full flex flex-col justify-center items-center">
+                <div className="flex-[1]"/>
+                <div className="mb-[6px]">
+                    검색 결과가 없습니다.
+                </div>
+                <div className="flex flex-row ">
+                    <button
+                        className="text-green-500"
+                        onClick={() => {
+                          setSearchKeyword(recommandText);
+                          setApiKeyword(recommandText);
+                        }}
+                    >
+                      {recommandText}
+                    </button>
+                    <div className="">
+                         (으)로 검색
+                    </div>
+                </div>
+                <div className="flex-[3]"/>
+            </div>
+        }
 
-        {apiKeyword &&  data?.pages.map((page, i) => (
+        {apiKeyword && data?.pages.map((page, i) => (
           <Fragment key={i}>
             {
               page.contents.map(article => (
