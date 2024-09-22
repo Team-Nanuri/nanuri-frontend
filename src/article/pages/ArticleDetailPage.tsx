@@ -1,15 +1,25 @@
+import React, { useState } from 'react';
 import { useNavigate, useParams } from "react-router-dom";
+import { useUser } from "@/user/hooks/useUser";
 import { useQuery } from "@tanstack/react-query";
 import { getArticleDetail } from "../api/article-api";
 import styles from "./ArticleDetailPage.module.css";
-import { ChevronLeft, Heart } from "lucide-react";
+import { ChevronLeft, EllipsisVertical, Heart } from "lucide-react";
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
 import LoadingSpinner from "@/global/components/LoadingSpinner";
 import { ArticleDetailModel } from "../api/article-response";
-// import styles from "@/article/pages/ArticleDetailPage.module.css";
+import ArticleModify from "@/article/components/ArticleModify";
+import rec from "@/assets/rec.png";
+ // ArticleModify 컴포넌트를 불러옵니다.
 
 export default function ArticleDetailPage() {
+  const [isModifyOpen, setModifyOpen] = useState<boolean>(false);
+
+
+  const openModify = (): void => {setModifyOpen(true);};
+  const closeModify = (): void => {setModifyOpen(false);};
+
   const { articleId } = useParams<{ articleId: string }>();
   const { data: articleDetail } = useQuery({
     queryKey: ["article", articleId],
@@ -24,26 +34,49 @@ export default function ArticleDetailPage() {
 
   return (
     <div className="w-full h-full overflow-y-auto">
-      <ArticleDetailHeader />
+      <ArticleDetailHeader openModify={openModify}  />
       {/* imageUrls 배열을 map으로 순회하여 이미지를 렌더링 */}
+           
+      {/* 이미지 렌더링 */}
       <div className={styles.picturesContainer}>
-        {articleDetail?.imageUrls?.map((imageUrl: string, index: number) => (
-          <img
-            key={index}
-            className={styles.pictures}
-            src={imageUrl}
-            alt={`image-${index}`}
-          />
-        ))}
+        {articleDetail.imageUrls && articleDetail.imageUrls.length > 0 ? (
+          articleDetail.imageUrls.map((imageUrl: string, index: number) => (
+            <img
+              key={index}
+              className={styles.pictures}
+              src={imageUrl}
+              alt={`image-${index}`}
+            />
+          ))
+        ) : (
+          <img className={styles.pictures} src={rec} alt="default image" />
+        )}
       </div>
       <ArticleDetailContent articleDetail={articleDetail} />
+  {/* ArticleModify 모달 */}
+  {isModifyOpen && (
+            <ArticleModify closeModify={closeModify} />
+      )}
     </div>
   );
 }
 
-function ArticleDetailHeader() {
-    
+function ArticleDetailHeader({openModify}: {openModify: () => void}) {
   const navigate = useNavigate();
+  const { user, error } = useUser();
+  const { articleId } = useParams<{ articleId: string }>();
+  const { data: articleDetail } = useQuery({
+    queryKey: ["article", articleId],
+    queryFn: async () => {
+      return await getArticleDetail(Number(articleId));
+    },
+  });
+
+  if (!articleDetail) {
+    return <LoadingSpinner />;
+  }
+    
+  
 
   const goBack = () => {
     navigate(-1);
@@ -54,9 +87,16 @@ function ArticleDetailHeader() {
       <button className={styles.backButton} onClick={goBack}>
         <ChevronLeft />
       </button>
-      <button className={styles.heartButton}>
+      {(user?.id === articleDetail?.writer.id ) ? (
+        <button className={styles.RightButton} onClick={openModify}>
+          <EllipsisVertical />
+        </button>
+      ) : (
+        <button className={styles.RightButton}>
         <Heart />
       </button>
+      )}
+    
     </header>
   );
 }
