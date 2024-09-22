@@ -9,7 +9,7 @@ import {PagingResponse} from "@/global/api/response.ts";
 import {PagingParams} from "@/global/api/request.ts";
 
 export function sendChatMessage(req: ChatSendRequest): Promise<void> {
-  return axiosClient.post('/api/chat', req);
+  return axiosClient.post('/api/chat/message', req);
 }
 
 export async function createChatRoom(req: ChatRoomCreateRequest): Promise<number> {
