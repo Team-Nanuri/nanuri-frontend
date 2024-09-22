@@ -1,6 +1,7 @@
 import {useNavigate} from "react-router-dom";
 import {ChevronLeft, Search} from "lucide-react";
 import {Input} from "@/global/components/ui/input.tsx";
+import {useTranslation} from "react-i18next";
 
 
 interface SearchHeaderProps {
@@ -12,9 +13,12 @@ interface SearchHeaderProps {
 export default function ArticleSearchHeader({searchKeyword, setSearchKeyword, onSearchClicked}: SearchHeaderProps) {
   const navigate = useNavigate();
 
+  const {  t } = useTranslation();
+
   const handleBack = () => {
     navigate(-1); // 뒤로 가기
   };
+
 
   return (
     <header className="
@@ -26,7 +30,7 @@ export default function ArticleSearchHeader({searchKeyword, setSearchKeyword, on
       </button>
       <Input
         className="mx-[12px] bg-searchBarGrey"
-        placeholder="검색어를 입력하세요"
+        placeholder={t("검색어를 입력하세요.")}
         value={searchKeyword}
         onChange={(e) => setSearchKeyword(e.target.value)}
         onKeyDown={(e) => {

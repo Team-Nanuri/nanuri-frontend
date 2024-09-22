@@ -1,0 +1,13 @@
+{
+  "검색어를 입력하세요.": "Enter a search term.",
+  "정렬" : "Sort",
+  "최신순": "Newest",
+  "등록일순": "Oldest",
+  "카테고리": "Category",
+  "전체": "All",
+  "유형": "Type",
+  "상태" : "Status",
+  "완료" : "Completed",
+  "진행중": "In Progress",
+  "취소": "Cancel"
+}

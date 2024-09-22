@@ -16,6 +16,7 @@ import {ArticleStatus, ShareType} from "@/article/api/article-response.ts";
 import ArticleSearchHeader from "@/article/components/ArticleSearchHeader.tsx";
 import LoadingSpinner from "@/global/components/LoadingSpinner.tsx";
 import {ArticleSort} from "@/article/api/article-request.ts";
+import {useTranslation} from "react-i18next";
 
 
 export default function ArticleSearchPage() {
@@ -96,6 +97,8 @@ function ArticleSearchParamBox({shareType, setShareType, status, setStatus, sort
   sort: ArticleSort | undefined,
   setSort: (sort: ArticleSort) => void,
 }){
+
+  const {  t } = useTranslation();
   return (
     <div
       className="
@@ -104,7 +107,7 @@ function ArticleSearchParamBox({shareType, setShareType, status, setStatus, sort
     ">
       <Badge variant="secondary" className="pr-1">
         <div>
-          카테고리
+          {t("카테고리")}
         </div>
         <ChevronDown />
       </Badge>
@@ -122,11 +125,10 @@ export function DrawerShareType(
     setShareType: (shareType?: ShareType) => void
   }
 ){
+  const {  t } = useTranslation();
   let label = '유형';
-  if(shareType === 'DONATE'){
-    label = '나눔';
-  }else if(shareType === 'RENTAL'){
-    label = '대여';
+  if(shareType){
+    label = shareType;
   }
 
   return (
@@ -134,7 +136,7 @@ export function DrawerShareType(
       <DrawerTrigger asChild>
         <Badge variant="secondary" className="pr-1">
           <div>
-            {label}
+            {t(label)}
           </div>
           <ChevronDown/>
         </Badge>
@@ -142,7 +144,7 @@ export function DrawerShareType(
       <DrawerContent>
         <div className="mx-auto w-full max-w-sm">
           <DrawerHeader>
-            <DrawerTitle>유형</DrawerTitle>
+            <DrawerTitle>{t("유형")}</DrawerTitle>
           </DrawerHeader>
 
           <DrawerFooter>
@@ -152,7 +154,7 @@ export function DrawerShareType(
                   className="flex-[1] bg-[#f0f0f0] p-4 rounded-md"
                   onClick={()=>setShareType("DONATE")}
                 >
-                  나눔
+                  {t("DONATE")}
                 </button>
               </DrawerClose>
               <DrawerClose asChild>
@@ -160,7 +162,7 @@ export function DrawerShareType(
                   className="flex-[1] bg-[#f0f0f0] p-4 rounded-md"
                   onClick={()=>setShareType("RENTAL")}
                 >
-                  대여
+                  {t("RENTAL")}
                 </button>
               </DrawerClose>
             </div>
@@ -170,7 +172,7 @@ export function DrawerShareType(
                 className="flex-[1] bg-[#f0f0f0] p-4 rounded-md"
                 onClick={()=>setShareType(undefined)}
               >
-                취소
+                {t("취소")}
               </button>
             </DrawerClose>
 
@@ -187,6 +189,8 @@ export function DrawerArticleStatus(
     setStatus: (status?: ArticleStatus) => void
   }
 ){
+  const {  t } = useTranslation();
+
   let label = '상태';
   if(status==='ONGOING'){
     label = '진행중';
@@ -199,7 +203,7 @@ export function DrawerArticleStatus(
       <DrawerTrigger asChild>
         <Badge variant="secondary" className="pr-1">
           <div>
-            {label}
+            {t(label)}
           </div>
           <ChevronDown/>
         </Badge>
@@ -207,7 +211,7 @@ export function DrawerArticleStatus(
       <DrawerContent>
         <div className="mx-auto w-full max-w-sm">
           <DrawerHeader>
-            <DrawerTitle>유형</DrawerTitle>
+            <DrawerTitle>{t("유형")}</DrawerTitle>
           </DrawerHeader>
 
           <DrawerFooter>
@@ -217,7 +221,7 @@ export function DrawerArticleStatus(
                   className="flex-[1] bg-[#f0f0f0] p-4 rounded-md"
                   onClick={()=>setStatus("ONGOING")}
                 >
-                  진행중
+                  {t("진행중")}
                 </button>
               </DrawerClose>
               <DrawerClose asChild>
@@ -225,7 +229,7 @@ export function DrawerArticleStatus(
                   className="flex-[1] bg-[#f0f0f0] p-4 rounded-md"
                   onClick={()=>setStatus("DONE")}
                 >
-                  완료
+                  {t("완료")}
                 </button>
               </DrawerClose>
             </div>
@@ -235,7 +239,7 @@ export function DrawerArticleStatus(
                 className="flex-[1] bg-[#f0f0f0] p-4 rounded-md"
                 onClick={()=>setStatus(undefined)}
               >
-                취소
+                {t("취소")}
               </button>
             </DrawerClose>
 
@@ -253,6 +257,8 @@ export function DrawerArticleSort(
     setSort: (sort?: ArticleSort) => void
   }
 ){
+  const {  t } = useTranslation();
+
   let label = '정렬';
   if(sort==='CREATED_AT_DESC'){
     label = '최신순';
@@ -265,7 +271,7 @@ export function DrawerArticleSort(
       <DrawerTrigger asChild>
         <Badge variant="secondary" className="pr-1">
           <div>
-            {label}
+            {t(label)}
           </div>
           <ChevronDown/>
         </Badge>
@@ -273,7 +279,7 @@ export function DrawerArticleSort(
       <DrawerContent>
         <div className="mx-auto w-full max-w-sm">
           <DrawerHeader>
-            <DrawerTitle>유형</DrawerTitle>
+            <DrawerTitle>{t("정렬")}</DrawerTitle>
           </DrawerHeader>
 
           <DrawerFooter>
@@ -281,9 +287,8 @@ export function DrawerArticleSort(
               <DrawerClose asChild>
                 <button
                   className="flex-[1] bg-[#f0f0f0] p-4 rounded-md"
-                  onClick={()=>setSort("CREATED_AT_DESC")}
-                >
-                  최신순
+                  onClick={()=>setSort("CREATED_AT_DESC")}>
+                  {t("최신순")}
                 </button>
               </DrawerClose>
               <DrawerClose asChild>
@@ -291,7 +296,7 @@ export function DrawerArticleSort(
                   className="flex-[1] bg-[#f0f0f0] p-4 rounded-md"
                   onClick={()=>setSort("CREATED_AT_ASC")}
                 >
-                  등록일순
+                  {t("등록일순")}
                 </button>
               </DrawerClose>
             </div>
@@ -301,7 +306,7 @@ export function DrawerArticleSort(
                 className="flex-[1] bg-[#f0f0f0] p-4 rounded-md"
                 onClick={()=>setSort(undefined)}
               >
-                취소
+                {t("취소")}
               </button>
             </DrawerClose>
 
