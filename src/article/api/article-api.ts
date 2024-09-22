@@ -20,28 +20,8 @@ export async function getArticlePaging(params: ArticlePagingParams): Promise<Pag
 }
 
 export async function getArticleDetail(articleId: number): Promise<ArticleDetailModel> {
-  // const res = await axiosClient.get(`/api/articles/${articleId}`);
-  // return res.data;
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  const article: ArticleDetailModel = {
-    articleId,
-    title: `Article ${articleId}`,
-    content: `Article content ${articleId}`,
-    imageUrls: [`https://picsum.photos/200/300?random=${articleId}`],
-    shareType: 'DONATION',
-    liked: articleId%7 === 4,
-    createdAt: new Date().toISOString(),
-    category: 'CATEGORY',
-    writer: {
-      userType: 'EXCHANGE',
-      id: articleId,
-      username: `User ${articleId}`,
-    },
-    status: articleId%3 === 1 ? 'DONE' : 'ONGOING',
-    rentalEndDate: new Date().toISOString(),
-    rentalStartDate: new Date().toISOString(),
-  }
-  return article;
+  const res = await axiosClient.get(`/api/articles/${articleId}`);
+  return res.data;
 }
 
 export async function createArticle(req: ArticleCreateRequest): Promise<void> {
